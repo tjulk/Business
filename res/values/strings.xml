@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xiangmin">XIANGMIN</string>
+    <string name="app_name">祥民家电服务移动平台</string>
+    <string name="notification_ticker_recorder">正在后台录音</string>
+    <string name="error_cant_create_recorder">ERROR: Failed to create an audio recorder</string>
+    <string name="error_cant_create_dir">ERROR: Failed to create a directory</string>
+    <string name="notification_text_recorder_pausing">录音已暂停</string>
+    <string name="notification_text_recorder_recording">正在录音...</string>
+    <string name="login_button_text">登录</string>
+    <string name="login_logo_text">祥民家电服务移动平台</string>
+    <string name="todo_manager_text">工单管理</string>
+    <string name="notification_text">通知公告</string>
+    <string name="todo_count_text">报表统计</string>
+    <string name="system_settings_text">系统设置</string>
+    <string name="go_text">动身</string>
+    <string name="start_text">开始</string>
+    <string name="note_text">填表</string>
+    <string name="wait_text">待件</string>
+    <string name="over_text">结束</string>
+    <string name="continue_text">继续</string>
+    <string name="todo_id_text">工单标识：</string>
+    <string name="todo_time_text">上门时间：</string>
+    <string name="todo_username_text">用户姓名：</string>
+    <string name="todo_address_text">用户地址：</string>
+    <string name="todo_phonenumber_text">联系方式：</string>
+    <string name="start_recoder_text">开始录音</string>
+    <string name="todo_state_text">任务状态：</string>
+    <string name="recoder_voice_text">||||||||||||||||||||</string>
+    <string name="start_recoder_after_click_text">点击后开始录音</string>
+    <string name="today_todolist_text">今日工单</string>
+    <string name="tomorrw_todolist_text">明日工单</string>
+    <string name="todolist_text">工单列表</string>
+
+</resources>

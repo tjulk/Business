@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actionbar_compat_height">45.0dip</dimen>
+    <dimen name="upcoming_height">70.0dip</dimen>
+    <dimen name="colorstrip_height">6.0dip</dimen>
+    <dimen name="text_size_xlarge">22.0sp</dimen>
+    <dimen name="text_size_large">20.0sp</dimen>
+    <dimen name="text_size_medium">18.0sp</dimen>
+    <dimen name="text_size_small">16.0sp</dimen>
+    <dimen name="text_size_xsmall">14.0sp</dimen>
+    <dimen name="text_size_tiny">11.0sp</dimen>
+    <dimen name="share_user_icon_width">32.0px</dimen>
+    <dimen name="share_user_icon_height">32.0px</dimen>
+</resources>

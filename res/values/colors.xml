@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorstrip">#fff80046</color>
+    <color name="actionbar_text">#ff000000</color>
+    <color name="accent_1">#fff80046</color>
+    <color name="white">#ffffffff</color>
+    <color name="half_black">#99000000</color>
+    <color name="body_background">#ff333333</color>
+    <color name="dark_font">#ffb3b3b3</color>
+    <color name="pink_font">#fff80046</color>
+    <color name="processing">#cc0000</color>
+	<color name="d_fg_text_faded">#808080</color>
+</resources>

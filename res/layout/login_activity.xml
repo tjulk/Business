@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/login_root"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/login_background" >
+
+        <LinearLayout
+            android:id="@+id/login_main_group"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="top|center"
+            android:orientation="vertical"
+            android:paddingLeft="20.0dip"
+            android:paddingRight="20.0dip"
+            >
+
+            <View
+                android:id="@+id/login_focus_holder"
+                android:layout_width="0.0dip"
+                android:layout_height="0.0dip"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:nextFocusDown="@+id/login_username"
+                android:nextFocusRight="@+id/login_username"
+                android:visibility="visible" />
+
+            <EditText
+                android:id="@+id/login_username"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="用户名"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="9.0dip"
+                android:paddingRight="9.0dip"
+                android:singleLine="true"
+                android:textSize="14.0sp" 
+                />
+
+            <EditText
+                android:id="@+id/login_password"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="密码"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="9.0dip"
+                android:password="true"
+                android:singleLine="true"
+                android:textSize="14.0sp" 
+                />
+
+            <Button
+                android:id="@+id/login_login"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:background="@drawable/login_button_background"
+                android:gravity="center"
+                android:paddingBottom="0.0dip"
+                android:paddingTop="0.0dip"
+                android:text="@string/login_button_text"
+                android:textColor="@drawable/solid_white"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/login_fb_logo_container"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@id/login_main_group"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center" ><TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/xiangmin"
+                android:textColor="@color/white"
+                android:textSize="50dip"
+                android:typeface="monospace" />
+
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/login_logo_text"
+            android:textColor="@color/white" 
+            android:textSize="18dip"
+            android:paddingBottom="100dip"/>
+
+    </RelativeLayout>
+
+</FrameLayout>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/orca_title_bar_top_background"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/login_logo_text"
+            android:textColor="@color/white"
+            android:textSize="22dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/today_todo_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_left"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/home_btn_artists"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/today"
+                android:text="@string/today_todolist_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tomorrow_todo_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_right"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/home_btn_events"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/tomorrow"
+                android:text="@string/tomorrw_todolist_text" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/todo_list_title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/bg_subtitle"
+        android:gravity="center"
+        android:text="@string/todolist_text"
+        android:textSize="18dip" />
+
+    <ListView
+        android:id="@+id/todolist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_horizontal" 
+        android:cacheColorHint="#00000000"/>
+
+</LinearLayout>

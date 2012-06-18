@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/orca_title_bar_top_background"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/login_logo_text"
+            android:textColor="@color/white"
+            android:textSize="22dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0" >
+
+        <LinearLayout
+            android:id="@+id/dashboard_top_left"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_left"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/home_btn_artists"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/ic_dashboard_artists"
+                android:text="@string/todo_manager_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dashboard_top_right"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_right"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/home_btn_events"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/ic_dashboard_events"
+                android:text="@string/notification_text" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0" >
+
+        <LinearLayout
+            android:id="@+id/dashboard_bottom_left"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_bottom_left"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/home_btn_location"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/ic_dashboard_location"
+                android:text="@string/todo_count_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dashboard_bottom_right"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_bottom_right"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/home_btn_mygigs"
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/ic_dashboard_mygigs"
+                android:text="@string/system_settings_text" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
