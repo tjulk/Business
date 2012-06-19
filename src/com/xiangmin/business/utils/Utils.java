@@ -1,5 +1,6 @@
 package com.xiangmin.business.utils;
 
+import com.xiangmin.business.R;
 import com.xiangmin.business.net.APIUtils;
 
 import android.content.Context;
@@ -11,13 +12,13 @@ public class Utils {
 	public final static String PREFERENCE_NAME = "xiang_min_business";
 	
 	public static void showFunctionUnComplete(Context context, String msg) {
-		Toast.makeText(context, msg+"功能正在完善中...", Toast.LENGTH_SHORT).show();
+		Toast.makeText(context, msg+"continue...", Toast.LENGTH_SHORT).show();
 	}
 
 	public static void showNetWorkError(Context context) {
 		if (!APIUtils.isNetworkAvailable(context)
 				&& !APIUtils.isWiFiActive(context)) {
-			Toast.makeText(context, "网络连接错误", Toast.LENGTH_SHORT).show();
+			Toast.makeText(context, R.string.login_network_failed_text, Toast.LENGTH_SHORT).show();
 			return;
 		}
 	}

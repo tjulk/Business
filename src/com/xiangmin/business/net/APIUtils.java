@@ -21,6 +21,7 @@ import org.jdom2.input.SAXBuilder;
 import org.xml.sax.InputSource;
 
 import com.xiangmin.business.BusinessApplication;
+import com.xiangmin.business.R;
 import com.xiangmin.business.models.Todo;
 
 import android.content.Context;
@@ -72,7 +73,7 @@ public class APIUtils {
 	}
 	/*------------------------ ------------------login end------------------------------------------------------*/
 	
-	/*------------------------ ------------------获取工单列表 ------------------------------------------------------*/
+	/*------------------------ ------------------getTodoListXML ------------------------------------------------------*/
 	
 	public static final int TYPE_TODAY = 0;
 	public static final int TYPE_TOMORROW = 1;
@@ -123,9 +124,9 @@ public class APIUtils {
 		return todos;
 	}
 	
-	/*------------------------ ------------------获取工单列表 end------------------------------------------------------*/
+	/*------------------------ ------------------getTodoList end------------------------------------------------------*/
 	
-	/*------------------------ ------------------修改工单 状态------------------------------------------------------*/
+	/*------------------------ ------------------setTodoState------------------------------------------------------*/
 
 	public static final String TODO_STATE_START = "1";
 	public static final String TODO_STATE_OVER = "2";
@@ -148,7 +149,7 @@ public class APIUtils {
 	public static int setTodoState(Context mContext,String todoId, String state) {
 		
 		if (!APIUtils.isNetworkAvailable(mContext)&& !APIUtils.isWiFiActive(mContext)){
-			Toast.makeText(mContext, "网络连接错误",Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, R.string.login_logo_text,Toast.LENGTH_SHORT).show();
 			return SET_TODO_STATE_FAILED;
 		}
 		
@@ -166,9 +167,9 @@ public class APIUtils {
 			return SET_TODO_STATE_FAILED;
 	}
 	
-	/*------------------------ ------------------修改工单 状态 end------------------------------------------------------*/	
+	/*------------------------ ------------------setTodoStateend------------------------------------------------------*/	
 	
-	/*------------------------ ------------------gps 信息发送 ------------------------------------------------------*/	
+	/*------------------------ ------------------sendGPS ------------------------------------------------------*/	
 	
 	public static final int SEND_GPS_SUCCESS = 200;
 	public static final int SEND_GPS_FAILED = 404;
@@ -205,16 +206,11 @@ public class APIUtils {
 			return SEND_GPS_FAILED;
 	}
 	
-	/*------------------------ ------------------gps 信息发送  end------------------------------------------------------*/	
+	/*------------------------ ------------------sendGPS  end------------------------------------------------------*/	
 	
-	/*------------------------ ------------------工单统计  ------------------------------------------------------*/
+	/*------------------------ ------------------getTodoCount  ------------------------------------------------------*/
 	
-	/*<CXPQueryOrderReportAPK>
-	<QueryTheme>【查询主题】</QueryTheme>
-	<UserName>【用户名】</UserName>
-	<Longitude>【终端用户经度】</Longitude>
-	<Latitude>【终端用户纬度】</Latitude>
-	</CXPQueryOrderReportAPK>*/
+ 
 	
 	public static String getTodoCountXML(String theme) {
 		final double longitude = BusinessApplication.getInstance().mLongitude;
@@ -250,7 +246,7 @@ public class APIUtils {
 	}
 	
 	
-	/*------------------------ ------------------工单统计  end------------------------------------------------------*/
+	/*------------------------ ------------------getTodoCount end------------------------------------------------------*/
 	
 	public static String httpConnect(String URL, String xml) {
 		HttpPost httpPost = new HttpPost(URL);

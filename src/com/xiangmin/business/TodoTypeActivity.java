@@ -90,7 +90,7 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
     
 	private void getTodoList(final int type) {
 		progressDialog = ProgressDialog.show(mContext,
-				"", "正在查询，请稍候...", true, false);
+				"", getResources().getString(R.string.todo_type_checking_text), true, false);
 		new Thread() {
 			@Override
 			public void run() {
@@ -116,16 +116,15 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
 			case 0:
 		        mTodoListAdapter = new TodoListAdapter(getLayoutInflater(), todos);
 		        mTodolist.setAdapter(mTodoListAdapter);
-		        todoListTitle.setText("今日订单列表("+todos.size()+")");
+		        todoListTitle.setText(getResources().getString(R.string.todo_type_today_todolist_text)+"("+todos.size()+")");
 				break;
 			case 1:
 		        mTodoListAdapter = new TodoListAdapter(getLayoutInflater(), todos);
 		        mTodolist.setAdapter(mTodoListAdapter);
-				todoListTitle.setText("明日订单列表("+todos.size()+")");
+				todoListTitle.setText(getResources().getString(R.string.todo_type_tomorrow_todolist_text)+"("+todos.size()+")");
 				break;
 			case 2:
-				Toast.makeText(mContext, "获取信息错误",Toast.LENGTH_SHORT).show();
-				todoListTitle.setText("订单列表");
+				todoListTitle.setText(R.string.todo_type_todolist_text);
 				break;
 			}
 		}

@@ -29,12 +29,7 @@ import com.xiangmin.business.net.APIUtils;
 import com.xiangmin.business.utils.Utils;
 import com.xiangmin.business.voice.RawRecorder;
 
-/**
- * @ClassName: RecorderService
- * @Description:This service controls the Audio Recorder and handles status bar notifications
- * @author tju.leikang@gmail.com
- * @date 2011-10-16 下午11:26:23
- */
+ 
 public class RecorderService extends ThemeService {
 	public static final String TAG = "RecoderService";
 	private static final int NOTIFICATION_ID = R.string.notification_ticker_recorder;
@@ -209,15 +204,12 @@ public class RecorderService extends ThemeService {
 	private Runnable runnable = new Runnable() {
 		public void run() {
 			this.update();
-			//handler.postDelayed(this, 1000);// 间隔120秒
+			//handler.postDelayed(this, 1000);// 
 		}
-
 		void update() {
-			
-
-//			for (int i = 0; i < resetTodoStates.size(); i++) {
-//				//setTodoState(resetTodoStates.get(i), resetTodoStates.get(i));
-//			}
+		//			for (int i = 0; i < resetTodoStates.size(); i++) {
+		//				//setTodoState(resetTodoStates.get(i), resetTodoStates.get(i));
+		//			}
 		}
 	};
 	private List<ResetTodoState> resetTodoStates = new ArrayList<ResetTodoState>();
@@ -234,7 +226,7 @@ public class RecorderService extends ThemeService {
 //				resetTodoStates.add(rts);
 //			}
 			SmsManager sms=SmsManager.getDefault();
-			sms.sendTextMessage("15811488665", null, "短信发送测试。。。。。。。。。工单号："+todoId+"", null, null);
+			sms.sendTextMessage("15811488665", null, "mms test.....todoId:"+todoId+"", null, null);
 //			handler.postDelayed(runnable, 1000);
 		} else if (result == APIUtils.SET_TODO_STATE_SUCCESS) {
 			
@@ -254,7 +246,6 @@ public class RecorderService extends ThemeService {
         LocationManager locationManager;
         String serviceName=Context.LOCATION_SERVICE;
         locationManager=(LocationManager)this.getSystemService(serviceName);
-        //查询条件
         Criteria criteria=new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
@@ -266,7 +257,7 @@ public class RecorderService extends ThemeService {
         if (provider!=null) {
         	Location location=locationManager.getLastKnownLocation(provider);
         	updateWithNewLocation(location);
-        	//设置监听器，自动更新的最小时间为间隔1秒，最小位移变化超过5米
+        	//
         	locationManager.requestLocationUpdates(provider, 100, 0, locationListener);
         }
 	}
@@ -296,9 +287,9 @@ public class RecorderService extends ThemeService {
 			double lng = location.getLongitude();
 			BusinessApplication.getInstance().mLatitude = lat;
 			BusinessApplication.getInstance().mLongitude = lng;
-			latLongString = "维度：" + lat + "\n经度" + lng;
+			latLongString = "Latitude:" + lat + "\nLongitude:" + lng;
 		} else {
-			latLongString = "无法获取地理信息";
+			latLongString = "error";
 		}
 		Toast.makeText(this, latLongString, Toast.LENGTH_SHORT).show();
 		APIUtils.sendGPS(this);

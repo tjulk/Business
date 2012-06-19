@@ -70,7 +70,7 @@ public class TodoListAdapter extends BaseAdapter {
 				holder.todoState.setText(todo.state);
 				view.setTag(holder);
 			} else {
-				holder.clientNameView.setText("错误数据");
+				holder.clientNameView.setText("error");
 			}
 			return view;
 		}

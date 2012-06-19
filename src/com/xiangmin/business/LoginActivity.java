@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.xiangmin.business.net.APIUtils;
 import com.xiangmin.business.utils.Utils;
-
+import com.xiangmin.business.R;
 public class LoginActivity extends Activity {
 
 	private Context mContext;
@@ -53,20 +53,20 @@ public class LoginActivity extends Activity {
 				final String account = mUserName.getText().toString();
 				final String password = mPassword.getText().toString();
 				if (!APIUtils.isNetworkAvailable(mContext)&& !APIUtils.isWiFiActive(mContext)){
-					Toast.makeText(mContext, "网络连接错误",Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, getResources().getString(R.string.login_network_failed_text),Toast.LENGTH_SHORT).show();
 					return;
 				}
 				else if (account == null||account .equals("")){
-					Toast.makeText(mContext, "用户名不能为空",Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, getResources().getString(R.string.login_username_null_text),Toast.LENGTH_SHORT).show();
 					return;
 				}
 				else if (password == null||password .equals("")){
-					Toast.makeText(mContext, "密码不能为空",Toast.LENGTH_SHORT).show();
+					Toast.makeText(mContext, getResources().getString(R.string.login_password_null_text),Toast.LENGTH_SHORT).show();
 					return;
 				}
 				else {
 					progressDialog = ProgressDialog.show(mContext,
-							"", "正在登录，请稍候...", true, false);
+							"",getResources().getString(R.string.login_waiting_text), true, false);
 					new Thread() {
 						@Override
 						public void run() {
@@ -103,11 +103,11 @@ public class LoginActivity extends Activity {
 				startActivity(new Intent(mContext, MainActivity.class));
 				break;
 			case 1:
-				Toast.makeText(mContext, "连接服务器超时",
+				Toast.makeText(mContext,getResources().getString(R.string.login_connect_timeout_text) ,
 						Toast.LENGTH_SHORT).show();
 				break;
 			case 2:
-				Toast.makeText(mContext, "登录失败",
+				Toast.makeText(mContext,getResources().getString(R.string.login_failed_text),
 						Toast.LENGTH_SHORT).show();
 				break;
 			}

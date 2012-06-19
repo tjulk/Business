@@ -119,7 +119,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
     	todo_state = (TextView) findViewById(R.id.todo_state);
         
         todoEngineer = (TextView) findViewById(R.id.todo_engineer);
-        todoEngineer.setText("工程师 : "+BusinessApplication.getInstance().todoEngineer);
+        todoEngineer.setText(getResources().getString(R.string.todo_detail_username_text)+BusinessApplication.getInstance().todoEngineer);
         
         todo_detail_panel = (LinearLayout) findViewById(R.id.todo_detail_panel);
         recoder_panel = (RelativeLayout) findViewById(R.id.recoder_panel);
@@ -225,13 +225,13 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.todo_detail_start:
 			 Dialog dialog_start = new AlertDialog.Builder(this)
-			         .setIcon(android.R.drawable.btn_star).setTitle("工单开始")
-			         .setMessage("开始前播放宣传录音？")
-			         .setNegativeButton("我点错了，取消", new DialogInterface.OnClickListener() {
+			         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_start_text)
+			         .setMessage(R.string.todo_detail_play_music_text)
+			         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							dialog.dismiss();
 						}
-					}).setNeutralButton("不播放，直接开始", new DialogInterface.OnClickListener() {
+					}).setNeutralButton(R.string.todo_detail_display_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							if (isPlayingMusic) {
 								mService.playAudio();
@@ -243,7 +243,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				    		todo_detail_over_text.setTextColor(Color.RED);
 				    		todo_detail_over.setClickable(true);
 						}
-					}).setPositiveButton("播放录音后开始", new DialogInterface.OnClickListener() {
+					}).setPositiveButton(R.string.todo_detail_start_after_play_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							isPlayingMusic = true;
 							stop_play_music.setVisibility(View.VISIBLE);
@@ -263,13 +263,13 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			break;
 		case R.id.todo_detail_over:
 			 Dialog dialog_over = new AlertDialog.Builder(this)
-	         .setIcon(android.R.drawable.btn_star).setTitle("工单结束")
-	         .setMessage("确认结束任务？")
-	         .setNegativeButton("我点错了，取消", new DialogInterface.OnClickListener() {
+	         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_over_text)
+	         .setMessage(R.string.todo_detail_ask_over_text)
+	         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
 				}
-			}).setPositiveButton("确认结束", new DialogInterface.OnClickListener() {
+			}).setPositiveButton(R.string.todo_detail_ok_over_text, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					mService.setTodoState(mTodo.todoId,APIUtils.TODO_STATE_OVER);
 					finish();
@@ -322,13 +322,13 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 					if (mService.isRecording()) {
 						if(mRecordState == 1){
 							 Dialog dialog = new AlertDialog.Builder(mContext)
-					         .setIcon(android.R.drawable.btn_star).setTitle("录音结束")
-					         .setMessage("结束并保存录音？")
-					         .setNegativeButton("我点错了，取消", new DialogInterface.OnClickListener() {
+					         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_recoder_end_text)
+					         .setMessage(R.string.todo_detail_ask_save_recoder_text)
+					         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									dialog.dismiss();
 								}
-							}).setPositiveButton("确定结束录音并保存", new DialogInterface.OnClickListener() {
+							}).setPositiveButton(R.string.todo_detail_ask_save_recoder_text, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									mService.stopRecording();
 									setGUIPreRecord();
@@ -339,13 +339,13 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 						}
 					} else if (mRecordState == 2) {
 							 Dialog dialog = new AlertDialog.Builder(mContext)
-					         .setIcon(android.R.drawable.btn_star).setTitle("再次录音")
-					         .setMessage("该任务已录音，再次录音会覆盖上次录音，确定覆盖？")
-					         .setNegativeButton("我点错了，取消", new DialogInterface.OnClickListener() {
+					         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_recoder_again_text)
+					         .setMessage(R.string.todo_detail_ask_recover_text)
+					         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									dialog.dismiss();
 								}
-							}).setPositiveButton("确定覆盖上次录音", new DialogInterface.OnClickListener() {
+							}).setPositiveButton(R.string.todo_detail_ok_recover_text, new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int which) {
 									setGuiRecording();
 								}
@@ -391,13 +391,13 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		if (mService!=null&&mService.isRecording()) {
 			if(mRecordState == 1){
 				 Dialog dialog = new AlertDialog.Builder(mContext)
-		         .setIcon(android.R.drawable.btn_star).setTitle("您正在录音")
-		         .setMessage("您已开始任务，并正录音，是否保存录音并返回？")
-		         .setNegativeButton("我点错了，取消", new DialogInterface.OnClickListener() {
+		         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_recoding_text)
+		         .setMessage(R.string.todo_detail_ask_back_during_recoder_text)
+		         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 					}
-				}).setPositiveButton("确定返回", new DialogInterface.OnClickListener() {
+				}).setPositiveButton(R.string.todo_detail_ok_back_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						finish();
 					}
@@ -406,13 +406,13 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			}
 		} else if (isPlayingMusic) {
 				 Dialog dialog = new AlertDialog.Builder(mContext)
-		         .setIcon(android.R.drawable.btn_star).setTitle("正在播放录音文件")
-		         .setMessage("您已开始任务，并播放录音，是否停止播放并返回？")
-		         .setNegativeButton("我点错了，取消", new DialogInterface.OnClickListener() {
+		         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_is_playing_music_text)
+		         .setMessage(R.string.todo_detail_ask_back_during_recoder_text)
+		         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
 					}
-				}).setPositiveButton("确定返回", new DialogInterface.OnClickListener() {
+				}).setPositiveButton(R.string.todo_detail_ok_back_text, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						mService.stopPlayAudio();
 						finish();
@@ -531,7 +531,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	}
 	
 	private void setGUIPreRecord() {
-		mStatusbar.setText("点击开始录音");
+		mStatusbar.setText(R.string.todo_detail_click_for_start_text);
 		mChronometer.setBase(Utils.getTimestamp());
 		stopChronometer();
 		mVolume.setText(makeBar(20));
@@ -555,7 +555,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	}
 	
 	private void startTasks() {
-		mStatusbar.setText("点击结束录音");
+		mStatusbar.setText(R.string.todo_detail_click_for_end_text);
 		mStatusHandler.postDelayed(mShowStatusTask, STATUS);
 		mVolumeHandler.postDelayed(mShowVolumeTask, VOLUME);
 		startChronometer();
@@ -572,9 +572,8 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		mChronometer.stop();
 	}
 	
-	/** ------------------------------------------接受serive消息--------------------------------------------------*/
+	/** ------------------------------------------receive serive--------------------------------------------------*/
 	public class RecoderReceiver extends BroadcastReceiver {
-		//自定义一个广播接收器
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			isPlayingMusic = false;

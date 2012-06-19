@@ -29,7 +29,7 @@ public class Dirs {
 
 
 	public static void setBaseDir(String packageName) {
-		String baseDirAsString = Environment.getExternalStorageDirectory().getAbsolutePath() + "/详民家电服务移动平台/";
+		String baseDirAsString = Environment.getExternalStorageDirectory().getAbsolutePath() + "/xiangmin/";
 		sBaseDir = new File(baseDirAsString);
 		sRecordingsDir = new File(baseDirAsString + RECORDINGS);
 		sNomediaFile = new File(baseDirAsString + RECORDINGS + ".nomedia");

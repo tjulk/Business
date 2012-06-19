@@ -14,7 +14,7 @@ public class BusinessApplication extends Application{
     private static BusinessApplication instance;
 	public double mLongitude = 0;
 	public double mLatitude = 0;
-	public String todoEngineer = "祥民";
+	public String todoEngineer = "";
 
 	@Override
 	public void onCreate() {
