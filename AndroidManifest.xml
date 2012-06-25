@@ -19,11 +19,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".NotificationActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AnnounceActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".AnnounceDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ToDoDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".InstallActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".StatisticsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ComplaintsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".TodoTypeActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".StatisticsActivity" android:screenOrientation="portrait"/>
         <service android:name=".service.PlayerService" android:screenOrientation="portrait" />
 		<service android:name=".service.RecorderService"  android:screenOrientation="portrait"/>
     </application>

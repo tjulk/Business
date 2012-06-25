@@ -22,6 +22,7 @@ import org.xml.sax.InputSource;
 
 import com.xiangmin.business.BusinessApplication;
 import com.xiangmin.business.R;
+import com.xiangmin.business.models.Announce;
 import com.xiangmin.business.models.Todo;
 
 import android.content.Context;
@@ -167,7 +168,7 @@ public class APIUtils {
 			return SET_TODO_STATE_FAILED;
 	}
 	
-	/*------------------------ ------------------setTodoStateend------------------------------------------------------*/	
+	/*------------------------ ------------------setTodoState end------------------------------------------------------*/	
 	
 	/*------------------------ ------------------sendGPS ------------------------------------------------------*/	
 	
@@ -247,6 +248,81 @@ public class APIUtils {
 	
 	
 	/*------------------------ ------------------getTodoCount end------------------------------------------------------*/
+	
+	
+	/*------------------------ ------------------getAnnounceList------------------------------------------------------*/
+	
+	public static String getAnnounceListXML() {
+		final double longitude = BusinessApplication.getInstance().mLongitude;
+		final double latitude = BusinessApplication.getInstance().mLatitude;
+		final String userName = BusinessApplication.getInstance().todoEngineer;
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+			+ "<CXPQueryNoticeAPK><QueryTheme>" + 0
+			+ "</QueryTheme><UserName>"
+			+ userName + "</UserName><Longitude>" + longitude
+			+ "</Longitude><Latitude>" + latitude
+			+ "</Latitude></CXPQueryNoticeAPK>";
+	}
+	
+	public static List<Announce> getAnnounceList() {
+		final String xml = getAnnounceListXML();
+		final String result = XMLHeader+httpConnect(URL, xml);
+		Log.d(TAG, "getAnnounceList===" + result);
+		return parseAnnounceListXML(result);
+	}
+	
+	public static List<Announce> parseAnnounceListXML(String xmlString) {
+		List<Announce> announces = new ArrayList<Announce>();
+		try {
+			StringReader sr = new StringReader(xmlString);  
+			InputSource is = new InputSource(sr);  
+			Document document = (new SAXBuilder()).build(is);
+			Element employees=document.getRootElement();
+			List<Element> employeeList=employees.getChildren("Notice");
+			for(int i=0;i<employeeList.size();i++) {
+				final Announce announce = new Announce();
+				Element el = employeeList.get(i);
+				announce.announceId = el.getChildText("Key");
+				announce.announceTitle = el.getChildText("Title");
+				announce.announceType = el.getChildText("Type");
+				announce.announceDetail = getAnnounceDetail(announce.announceId);
+				announces.add(announce);
+			}
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return announces;
+	}
+	/*------------------------ ------------------getAnnounceCount end------------------------------------------------------*/
+	
+	/*------------------------ ------------------getAnnounceDetail------------------------------------------------------*/
+	
+	public static String getAnnounceDetailXML(String announceId) {
+		final double longitude = BusinessApplication.getInstance().mLongitude;
+		final double latitude = BusinessApplication.getInstance().mLatitude;
+		final String userName = BusinessApplication.getInstance().todoEngineer;
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+			+ "<CXPQueryNoticeDetailAPK><NoticeKey>" + announceId
+			+ "</NoticeKey><UserName>"
+			+ userName + "</UserName><Longitude>" + longitude
+			+ "</Longitude><Latitude>" + latitude
+			+ "</Latitude></CXPQueryNoticeDetailAPK>";
+	}
+	
+	public static String getAnnounceDetail(String announceId) {
+		final String xml = getAnnounceDetailXML(announceId);
+		final String result = XMLHeader+httpConnect(URL, xml);
+		
+		int start = result.indexOf("<NoticeDetail>")+14;
+		int end = result.indexOf("</NoticeDetail>");
+		System.out.println("=============== start"+start+" end " + end +result.substring(start, end));
+		
+		return result.substring(start, end);
+	}
+	
+	/*------------------------ ------------------getAnnounceDetail end------------------------------------------------------*/
 	
 	public static String httpConnect(String URL, String xml) {
 		HttpPost httpPost = new HttpPost(URL);

@@ -41,12 +41,12 @@ public class MainActivity extends Activity implements OnClickListener{
 			startActivity(new Intent(mContext, TodoTypeActivity.class));
 			break;
 		case R.id.dashboard_top_right:
-			Utils.showFunctionUnComplete(mContext,getResources().getString(R.string.notification_text));
-			//startActivity(new Intent(mContext, NotificationActivity.class));
+			//Utils.showFunctionUnComplete(mContext,getResources().getString(R.string.notification_text));
+			startActivity(new Intent(mContext, AnnounceActivity.class));
 			break;
 		case R.id.dashboard_bottom_left:
 			Utils.showFunctionUnComplete(mContext,getResources().getString(R.string.todo_count_text));
-			//startActivity(new Intent(mContext, InstallActivity.class));
+			startActivity(new Intent(mContext, StatisticsActivity.class));
 			break;
 		case R.id.dashboard_bottom_right:
 			Utils.showFunctionUnComplete(mContext,getResources().getString(R.string.system_settings_text));

@@ -53,9 +53,9 @@ public class TodoListAdapter extends BaseAdapter {
 				view = inflater.inflate(R.layout.todolist_item, parent, false);
 			}
 
-			FolderViewHolder holder = (FolderViewHolder) view.getTag();
+			TodoFolderViewHolder holder = (TodoFolderViewHolder) view.getTag();
 			if (holder == null) {
-				holder = new FolderViewHolder();
+				holder = new TodoFolderViewHolder();
 				holder.clientNameView = (TextView) view.findViewById(R.id.client_name_view);
 				holder.clientTodoTime = (TextView) view.findViewById(R.id.client_todo_time);
 				holder.todoState = (TextView) view.findViewById(R.id.todo_state);
@@ -77,7 +77,7 @@ public class TodoListAdapter extends BaseAdapter {
 
 	}
 
-	class FolderViewHolder {
+	class TodoFolderViewHolder {
 		public TextView clientNameView;
 		public TextView clientTodoTime;
 		public TextView todoState;

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/orca_title_bar_top_background"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/login_logo_text"
+            android:textColor="@color/white"
+            android:textSize="22dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/statistics_month_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_left"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/statistics_month"
+                android:text="按月统计" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/statistics_week_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_right"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/statistics_week"
+                android:text="按周统计" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/statistics_day_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_right"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/statistics_day"
+                android:text="按日统计" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/todo_list_title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/bg_subtitle"
+        android:gravity="center"
+        android:text="统计报表"
+        android:textSize="18dip" />
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+ 
+            <TextView
+				style="@style/DashboardButton"
+                android:layout_weight="1"
+                android:text="开始月份" />
+            <Spinner
+                android:id="@+id/start_month"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" 
+                android:layout_weight="1"/>
+ 
+            <TextView
+				style="@style/DashboardButton"
+ 
+                android:text="结束月份" />
+            <Spinner
+                android:id="@+id/end_month"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+ 
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="开始查询" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/todolist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_horizontal" 
+        android:cacheColorHint="#00000000"/>
+
+</LinearLayout>

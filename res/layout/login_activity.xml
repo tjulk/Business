@@ -80,11 +80,12 @@
             android:layout_above="@id/login_main_group"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:gravity="center" ><TextView
-                android:layout_width="wrap_content"
+            android:gravity="center" >
+        <TextView
+                android:layout_width="300dip"
                 android:layout_height="wrap_content"
+                android:background="@drawable/companylogo"
                 android:layout_centerHorizontal="true"
-                android:text="@string/xiangmin"
                 android:textColor="@color/white"
                 android:textSize="50dip"
                 android:typeface="monospace" />

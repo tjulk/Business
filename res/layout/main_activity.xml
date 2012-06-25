@@ -90,5 +90,15 @@
                 android:text="@string/system_settings_text" />
         </LinearLayout>
     </LinearLayout>
+    <TextView
+        android:id="@+id/todo_engineer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_subtitle"
+        android:gravity="center"
+        android:padding="8dip"
+        android:textColor="@color/white"
+        android:textSize="18dip"
+        android:text="祥民技术 版权所有V1.0" />
 
 </LinearLayout>
