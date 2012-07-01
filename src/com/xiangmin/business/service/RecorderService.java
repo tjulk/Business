@@ -214,7 +214,7 @@ public class RecorderService extends ThemeService {
 	};
 	private List<ResetTodoState> resetTodoStates = new ArrayList<ResetTodoState>();
 	
-	public void setTodoState(String todoId, String state) {
+	public void setTodoState(String todoId, int state) {
 		int result = APIUtils.setTodoState(this, todoId, state);
 		System.out.println("set state result "+result);
 		if (result == APIUtils.SET_TODO_STATE_FAILED) {
@@ -258,7 +258,7 @@ public class RecorderService extends ThemeService {
         	Location location=locationManager.getLastKnownLocation(provider);
         	updateWithNewLocation(location);
         	//
-        	locationManager.requestLocationUpdates(provider, 100, 0, locationListener);
+        	locationManager.requestLocationUpdates(provider, 60000, 0, locationListener);
         }
 	}
 	
@@ -291,9 +291,9 @@ public class RecorderService extends ThemeService {
 		} else {
 			latLongString = "error";
 		}
-		Toast.makeText(this, latLongString, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(this, latLongString, Toast.LENGTH_SHORT).show();
 		APIUtils.sendGPS(this);
-		APIUtils.getTodoCount(this);
+		//APIUtils.getTodoCount(this);
 	}
 		
 	/**--------------------------------------gps info end----------------------------------------------*/

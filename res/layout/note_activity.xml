@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/orca_title_bar_top_background"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/login_logo_text"
+            android:textColor="@color/white"
+            android:textSize="22dip" />
+    </LinearLayout>
+	<ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content"         android:layout_weight="1"
+        android:padding="20dip" android:scrollbars="none">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+         >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+			<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="产品型号"/>
+            <EditText
+                android:id="@+id/old_password"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="产品型号"
+                android:imeOptions="actionDone"
+                android:padding="9.0dip"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="故障类型"/>
+            <EditText
+                android:id="@+id/new_password"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="故障类型"
+                android:imeOptions="actionDone"
+                android:padding="9.0dip"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="保外收费金额"/>
+            <EditText
+                android:id="@+id/old_password"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="保外收费金额"
+                android:imeOptions="actionDone"
+                android:padding="9.0dip"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+        <TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="是否开具发票"/>
+            <EditText
+                android:id="@+id/old_password"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="是否开具发票"
+                android:imeOptions="actionDone"
+                android:padding="9.0dip"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+<TextView android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="发票抬头"/>
+            <EditText
+                android:id="@+id/old_password"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="发票抬头"
+                android:imeOptions="actionDone"
+                android:padding="9.0dip"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/login_login"
+            android:layout_width="fill_parent"
+            android:layout_height="42.0dip"
+            android:background="@drawable/login_button_background"
+            android:gravity="center"
+            android:paddingBottom="0.0dip"
+            android:paddingTop="0.0dip"
+            android:text="提交工单"
+            android:textColor="@drawable/solid_white"
+            android:textStyle="bold" />
+    </LinearLayout>
+    </ScrollView>
+    <TextView
+        android:id="@+id/todo_engineer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_subtitle"
+        android:gravity="center"
+        android:padding="8dip"
+        android:textColor="@color/white"
+        android:textSize="18dip"
+        android:text="祥民技术 版权所有V1.0" />
+</LinearLayout>

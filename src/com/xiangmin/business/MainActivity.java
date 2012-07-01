@@ -9,8 +9,6 @@ import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 
-import com.xiangmin.business.utils.Utils;
-
 public class MainActivity extends Activity implements OnClickListener{
 	private LinearLayout mWeixiuguanli;
 	private LinearLayout mTongzhigonggao;
@@ -41,16 +39,13 @@ public class MainActivity extends Activity implements OnClickListener{
 			startActivity(new Intent(mContext, TodoTypeActivity.class));
 			break;
 		case R.id.dashboard_top_right:
-			//Utils.showFunctionUnComplete(mContext,getResources().getString(R.string.notification_text));
 			startActivity(new Intent(mContext, AnnounceActivity.class));
 			break;
 		case R.id.dashboard_bottom_left:
-			Utils.showFunctionUnComplete(mContext,getResources().getString(R.string.todo_count_text));
 			startActivity(new Intent(mContext, StatisticsActivity.class));
 			break;
 		case R.id.dashboard_bottom_right:
-			Utils.showFunctionUnComplete(mContext,getResources().getString(R.string.system_settings_text));
-			//startActivity(new Intent(mContext, ComplaintsActivity.class));
+			startActivity(new Intent(mContext, SystemSettingsActivity.class));
 			break;
 
 		default:

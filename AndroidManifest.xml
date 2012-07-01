@@ -23,9 +23,10 @@
         <activity android:name=".AnnounceDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ToDoDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".StatisticsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ComplaintsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SystemSettingsActivity" android:screenOrientation="portrait"/>
         <activity android:name=".TodoTypeActivity" android:screenOrientation="portrait"/>
         <activity android:name=".StatisticsActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".NoteActivity" android:screenOrientation="portrait"/>
         <service android:name=".service.PlayerService" android:screenOrientation="portrait" />
 		<service android:name=".service.RecorderService"  android:screenOrientation="portrait"/>
     </application>

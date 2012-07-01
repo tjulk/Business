@@ -37,20 +37,6 @@
                 android:drawableTop="@drawable/statistics_month"
                 android:text="按月统计" />
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/statistics_week_btn"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:background="@drawable/bg_dashboard_top_right"
-            android:clickable="true" >
-
-            <TextView
-                style="@style/DashboardButton"
-                android:drawableTop="@drawable/statistics_week"
-                android:text="按周统计" />
-        </LinearLayout>
         <LinearLayout
             android:id="@+id/statistics_day_btn"
             android:layout_width="fill_parent"
@@ -76,11 +62,10 @@
         android:textSize="18dip" />
     
     <LinearLayout
+        android:id="@+id/month_panel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-
- 
             <TextView
 				style="@style/DashboardButton"
                 android:layout_weight="1"
@@ -88,28 +73,93 @@
             <Spinner
                 android:id="@+id/start_month"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" 
-                android:layout_weight="1"/>
- 
+                android:layout_height="42.0dip" 
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:padding="9.0dip"
+                android:textSize="14.0sp"
+                android:layout_weight="1"
+                android:drawSelectorOnTop="true"
+                android:background="@drawable/login_inputfield_background"
+				android:prompt="@string/statistics_start_month"/>
             <TextView
 				style="@style/DashboardButton"
- 
                 android:text="结束月份" />
             <Spinner
                 android:id="@+id/end_month"
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:padding="9.0dip"
+                android:textSize="14.0sp"
+                android:drawSelectorOnTop="true"
+                android:background="@drawable/login_inputfield_background"
+				android:prompt="@string/statistics_end_month" />
  
             <Button
+                android:id="@+id/start_check_btn"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/login_button_background"
+                android:textColor="@drawable/solid_white"
+            	android:textStyle="bold" 
+                android:layout_weight="1"
+                android:text="开始查询" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/day_panel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:visibility="gone">
+            <TextView
+				style="@style/DashboardButton"
+                android:layout_weight="1"
+                android:text="开始日期" />
+            <Button
+                android:id="@+id/start_day"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip" 
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:padding="9.0dip"
+                android:textSize="16.0sp"
+                android:layout_weight="1"
+                 android:background="@drawable/login_inputfield_background"
+                android:drawSelectorOnTop="true"
+				/>
+            <TextView
+				style="@style/DashboardButton"
+                android:text="结束日期" />
+            <Button
+                android:id="@+id/end_day"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="42.0dip" 
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:padding="9.0dip"
+                android:textSize="16.0sp"
+                 android:background="@drawable/login_inputfield_background"
+                android:drawSelectorOnTop="true"
+				/>
+ 
+            <Button
+                android:id="@+id/start_day_check_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
+                android:background="@drawable/login_button_background"
+                android:textColor="@drawable/solid_white"
+            	android:textStyle="bold" 
                 android:text="开始查询" />
     </LinearLayout>
 
     <ListView
-        android:id="@+id/todolist"
+        android:id="@+id/statistics_list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:divider="@drawable/divider_horizontal" 

@@ -94,7 +94,7 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
 			@Override
 			public void run() {
 				todos = APIUtils.getTodoList(type, mSetting.getString("account", ""));
-				System.out.println(todos.toString());
+				System.out.println("=========getTodoList+++===="+todos.toString());
 		        progressDialog.dismiss();
 		        if(todos!=null&&todos.size()!=0) {
 			        if(type==APIUtils.TYPE_TODAY)

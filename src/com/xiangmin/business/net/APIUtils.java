@@ -23,6 +23,8 @@ import org.xml.sax.InputSource;
 import com.xiangmin.business.BusinessApplication;
 import com.xiangmin.business.R;
 import com.xiangmin.business.models.Announce;
+import com.xiangmin.business.models.PersonSkill;
+import com.xiangmin.business.models.Statistics;
 import com.xiangmin.business.models.Todo;
 
 import android.content.Context;
@@ -92,7 +94,7 @@ public class APIUtils {
 	public static List<Todo> getTodoList(int type,String username) {
 		final String xml = getTodoListXML(type, username);
 		final String result = XMLHeader+httpConnect(URL, xml);
-		Log.d(TAG, "getTodoList===" + result);
+		Log.d(TAG, "getTodoList===+++" + result);
 		return parseTodoListXML(result);
 	}
 	
@@ -104,12 +106,14 @@ public class APIUtils {
 			InputSource is = new InputSource(sr);  
 			Document document = (new SAXBuilder()).build(is);
 			Element employees=document.getRootElement();
-			List<Element> employeeList=employees.getChildren("Order");
+			Element CXPQueryOrderAPKResult = employees.getChild("Orders");
+			List<Element> employeeList=CXPQueryOrderAPKResult.getChildren("Order");
 			for(int i=0;i<employeeList.size();i++) {
 				final Todo todo = new Todo();
 				Element el = employeeList.get(i);
 				todo.todoId = el.getChildText("Key");
 				todo.todoTime = el.getChildText("RequiredStamp");
+				todo.state = el.getChildText("Status");
 				Element cus = el.getChild("Customer");
 				todo.clientName = cus.getChildText("Name");
 				todo.address = cus.getChildText("Address");
@@ -129,13 +133,11 @@ public class APIUtils {
 	
 	/*------------------------ ------------------setTodoState------------------------------------------------------*/
 
-	public static final String TODO_STATE_START = "1";
-	public static final String TODO_STATE_OVER = "2";
 	public static final int SET_TODO_STATE_SUCCESS = 200;
 	public static final int SET_TODO_STATE_FAILED = 404;
 	
 	
-	public static String setTodoStateXML(String todoId, String state) {
+	public static String setTodoStateXML(String todoId, int state) {
 		final double longitude = BusinessApplication.getInstance().mLongitude;
 		final double latitude = BusinessApplication.getInstance().mLatitude;
 		final String userName = BusinessApplication.getInstance().todoEngineer;
@@ -147,7 +149,7 @@ public class APIUtils {
 				+ "</Latitude></CXPQueryOrderAPK>";
 	}
 	
-	public static int setTodoState(Context mContext,String todoId, String state) {
+	public static int setTodoState(Context mContext,String todoId, int state) {
 		
 		if (!APIUtils.isNetworkAvailable(mContext)&& !APIUtils.isWiFiActive(mContext)){
 			Toast.makeText(mContext, R.string.login_logo_text,Toast.LENGTH_SHORT).show();
@@ -323,6 +325,127 @@ public class APIUtils {
 	}
 	
 	/*------------------------ ------------------getAnnounceDetail end------------------------------------------------------*/
+	
+	
+	/*------------------------ ------------------getStatistics ------------------------------------------------------*/
+	public static String getStatisticsXML(int type, String startDate,String endDate) {
+		final double longitude = BusinessApplication.getInstance().mLongitude;
+		final double latitude = BusinessApplication.getInstance().mLatitude;
+		final String userName = BusinessApplication.getInstance().todoEngineer;
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+			+ "<CXPQueryOrderReportAPK><QueryTheme>" + type
+			+ "</QueryTheme><QueryCondition><StartDate>"
+			+ startDate + "</StartDate><EndDate>"+endDate +"</EndDate></QueryCondition>"
+			+ "<UserName>" + userName + "</UserName><Longitude>" + longitude
+			+ "</Longitude><Latitude>" + latitude
+			+ "</Latitude></CXPQueryOrderReportAPK>";
+	}
+	
+	public static List<Statistics> getStatisticsList(int type, String startDate,String endDate) {
+		final String xml = getStatisticsXML(type,startDate,endDate);
+		System.out.println("====xml"+xml);
+		final String result = XMLHeader+httpConnect(URL, xml);
+		return parseStatisticsListXML(result);
+	}
+	
+	public static List<Statistics> parseStatisticsListXML(String xmlString) {
+		List<Statistics> statisticses = new ArrayList<Statistics>();
+		try {
+			StringReader sr = new StringReader(xmlString);  
+			InputSource is = new InputSource(sr);  
+			Document document = (new SAXBuilder()).build(is);
+			Element employees=document.getRootElement();
+			List<Element> employeeList=employees.getChildren("Report");
+			final Statistics statistic = new Statistics();
+			statistic.data = "统计时间";
+			statistic.warrantyPeriodCount = "保外";
+			statistic.warrantyExpiredCount = "保内";
+			statistic.unfinishedCount = "未完成";
+			statistic.finishedCount = "已完成";
+			statistic.warrantyPeriodClearingMoney = "保外结算";
+			statistic.warrantyExpiredClearingMoney = "保内结算";
+			statisticses.add(statistic);
+			
+			for(int i=0;i<employeeList.size();i++) {
+				final Statistics statistics = new Statistics();
+				Element el = employeeList.get(i);
+				statistics.data = el.getChildText("Date");
+				statistics.warrantyPeriodCount = el.getChildText("WarrantyPeriodCount");
+				statistics.warrantyExpiredCount = el.getChildText("WarrantyExpiredCount");
+				statistics.unfinishedCount = el.getChildText("UnfinishedCount");
+				statistics.finishedCount = el.getChildText("FinishedCount");
+				statistics.warrantyPeriodClearingMoney = el.getChildText("WarrantyPeriodClearingMoney")==null?"0":el.getChildText("WarrantyPeriodClearingMoney");
+				statistics.warrantyExpiredClearingMoney = el.getChildText("WarrantyExpiredClearingMoney")==null?"0":el.getChildText("WarrantyExpiredClearingMoney");
+				statisticses.add(statistics);
+			}
+			
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("=============statisticses====="+statisticses.toString());
+		return statisticses;
+	}
+	
+	/*------------------------ ------------------getStatistics end------------------------------------------------------*/
+	
+	
+	/*------------------------ ------------------getmPersonSkill ------------------------------------------------------*/
+	public static String getPersonSkillXML() {
+		final double longitude = BusinessApplication.getInstance().mLongitude;
+		final double latitude = BusinessApplication.getInstance().mLatitude;
+		final String userName = BusinessApplication.getInstance().todoEngineer;
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+				+ "<CXPQueryArchivementAPK><UserName>" + userName
+				+ "</UserName><Longitude>" + longitude
+				+ "</Longitude><Latitude>" + latitude
+				+ "</Latitude></CXPQueryArchivementAPK>";
+	}
+	public static PersonSkill getPersonSkill() {
+		final String xml = getPersonSkillXML();
+		System.out.println("====xml"+xml);
+		final String result = XMLHeader+httpConnect(URL, xml);
+		System.out.println(result);
+		return parsePersonSkillXML(result);
+	}
+	
+	public static PersonSkill parsePersonSkillXML(String xmlString) {
+		PersonSkill personSkill = new PersonSkill();
+		try {
+			StringReader sr = new StringReader(xmlString);  
+			InputSource is = new InputSource(sr);  
+			Document document = (new SAXBuilder()).build(is);
+			Element employees=document.getRootElement();
+			
+			
+			personSkill.peixunshuliang = employees.getChildText("Training");
+			
+			personSkill.fuwunengli = employees.getChildText("ServiceAbility");
+			personSkill.gerenzili = employees.getChildText("PersonalQualification");
+			
+			int jishustart = xmlString.indexOf("<Skill>")+7;
+			int jishusend = xmlString.indexOf("</Skill>");
+			int tongjistart = xmlString.indexOf("<OrderSummary>")+14;
+			int tongjiend = xmlString.indexOf("</OrderSummary>");
+			personSkill.jishunengli = xmlString.substring(jishustart, jishusend);
+			personSkill.gongdantongji = xmlString.substring(tongjistart, tongjiend);
+ 
+		} catch (JDOMException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("=========="+personSkill.toString());
+		return personSkill;
+	}
+	
+	/*------------------------ ------------------getmPersonSkill end------------------------------------------------------*/
+	
+	
+	
+	
 	
 	public static String httpConnect(String URL, String xml) {
 		HttpPost httpPost = new HttpPost(URL);

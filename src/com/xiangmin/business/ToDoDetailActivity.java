@@ -30,19 +30,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiangmin.business.models.Todo;
-import com.xiangmin.business.net.APIUtils;
 import com.xiangmin.business.service.RecorderService;
 import com.xiangmin.business.utils.Utils;
 import com.xiangmin.business.voice.Dirs;
 
 public class ToDoDetailActivity extends Activity implements OnClickListener{
+	
+	
+	private static final int TODO_SET_STATE_GO = 0;//动身
+	private static final int TODO_SET_STATE_START = 1;//开始
+	private static final int TODO_SET_STATE_OVER = 2;//完成
+	private static final int TODO_SET_STATE_WAIT = 3;//挂起
 
 	private static final String TAG = "ToDoDetailActivity";
-	public static final String TODO_STATE_GO = "state_go";
-	public static final String TODO_STATE_START = "state_start";
+	public static final String TODO_STATE_GOT = "已派工";
+	public static final String TODO_STATE_GO = "已接受";
+	public static final String TODO_STATE_START = "已开始";
 	public static final String TODO_STATE_NOTE = "state_note";
-	public static final String TODO_STATE_WAIT = "state_wait";
-	public static final String TODO_STATE_OVER = "state_over";
+	public static final String TODO_STATE_WAIT = "已挂起";
+	public static final String TODO_STATE_OVER = "已结束";
 	public static final String TODO_STATE_CONTINUE = "state_continue";
 	
 	
@@ -137,67 +143,77 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 
     private void initUI() {
     	final String state = mTodo.state;
-    	if (state.equals(TODO_STATE_GO)) {
-    		todo_detail_go.setClickable(false);
+    	if (state.equals(TODO_STATE_GOT)) {
+    		todo_detail_go.setClickable(true);
     		todo_detail_start.setClickable(true);
-    		todo_detail_note.setClickable(false);
-    		todo_detail_wait.setClickable(false);
-    		todo_detail_over.setClickable(false);
-    		todo_detail_continue.setClickable(false);
+    		todo_detail_note.setClickable(true);
+    		todo_detail_wait.setClickable(true);
+    		todo_detail_over.setClickable(true);
+    		todo_detail_continue.setClickable(true);
     		
     		todo_detail_go_text.setTextColor(Color.RED);
-    	} else if (state.equals(TODO_STATE_START)) {
-    		todo_detail_go.setClickable(false);
+    	} else if (state.equals(TODO_STATE_GO)) {
+    		todo_detail_go.setClickable(true);
     		todo_detail_start.setClickable(true);
-    		todo_detail_note.setClickable(false);
-    		todo_detail_wait.setClickable(false);
-    		todo_detail_over.setClickable(false);
-    		todo_detail_continue.setClickable(false);
+    		todo_detail_note.setClickable(true);
+    		todo_detail_wait.setClickable(true);
+    		todo_detail_over.setClickable(true);
+    		todo_detail_continue.setClickable(true);
     		
     		todo_detail_start_text.setTextColor(Color.RED);
-    	} else if (state.equals(TODO_STATE_NOTE)) {
-    		todo_detail_go.setClickable(false);
-    		todo_detail_start.setClickable(false);
+    	} else if (state.equals(TODO_STATE_START)) {
+    		todo_detail_go.setClickable(true);
+    		todo_detail_start.setClickable(true);
     		todo_detail_note.setClickable(true);
-    		todo_detail_wait.setClickable(false);
-    		todo_detail_over.setClickable(false);
-    		todo_detail_continue.setClickable(false);
+    		todo_detail_wait.setClickable(true);
+    		todo_detail_over.setClickable(true);
+    		todo_detail_continue.setClickable(true);
+    		
+    		todo_detail_wait_text.setTextColor(Color.RED);
+    		todo_detail_over_text.setTextColor(Color.RED);
+    	} else if (state.equals(TODO_STATE_NOTE)) {
+    		todo_detail_go.setClickable(true);
+    		todo_detail_start.setClickable(true);
+    		todo_detail_note.setClickable(true);
+    		todo_detail_wait.setClickable(true);
+    		todo_detail_over.setClickable(true);
+    		todo_detail_continue.setClickable(true);
     		
     		todo_detail_note_text.setTextColor(Color.RED);
     	} else if (state.equals(TODO_STATE_WAIT)) {
-    		todo_detail_go.setClickable(false);
-    		todo_detail_start.setClickable(false);
-    		todo_detail_note.setClickable(false);
+    		todo_detail_go.setClickable(true);
+    		todo_detail_start.setClickable(true);
+    		todo_detail_note.setClickable(true);
     		todo_detail_wait.setClickable(true);
-    		todo_detail_over.setClickable(false);
-    		todo_detail_continue.setClickable(false);
-    		
-    		todo_detail_wait_text.setTextColor(Color.RED);
-    	} else if (state.equals(TODO_STATE_OVER)) {
-    		todo_detail_go.setClickable(false);
-    		todo_detail_start.setClickable(false);
-    		todo_detail_note.setClickable(false);
-    		todo_detail_wait.setClickable(false);
     		todo_detail_over.setClickable(true);
-    		todo_detail_continue.setClickable(false);
+    		todo_detail_continue.setClickable(true);
     		
-    		todo_detail_over_text.setTextColor(Color.RED);
-    	} else if (state.equals(TODO_STATE_CONTINUE)) {
-    		todo_detail_go.setClickable(false);
-    		todo_detail_start.setClickable(false);
-    		todo_detail_note.setClickable(false);
-    		todo_detail_wait.setClickable(false);
-    		todo_detail_over.setClickable(false);
+    		todo_detail_note_text.setTextColor(Color.RED);
+    	} else if (state.equals(TODO_STATE_OVER)) {
+    		todo_detail_go.setClickable(true);
+    		todo_detail_start.setClickable(true);
+    		todo_detail_note.setClickable(true);
+    		todo_detail_wait.setClickable(true);
+    		todo_detail_over.setClickable(true);
+    		todo_detail_continue.setClickable(true);
+    		
+    		todo_detail_note_text.setTextColor(Color.RED);
+    	} else if (state.equals(TODO_STATE_NOTE)) {
+    		todo_detail_go.setClickable(true);
+    		todo_detail_start.setClickable(true);
+    		todo_detail_note.setClickable(true);
+    		todo_detail_wait.setClickable(true);
+    		todo_detail_over.setClickable(true);
     		todo_detail_continue.setClickable(true);
     		
     		todo_detail_continue_text.setTextColor(Color.RED);
     	} else {
-    		todo_detail_go.setClickable(false);
+    		todo_detail_go.setClickable(true);
     		todo_detail_start.setClickable(true);
-    		todo_detail_note.setClickable(false);
-    		todo_detail_over.setClickable(false);
-    		todo_detail_wait.setClickable(false);
-    		todo_detail_continue.setClickable(false);
+    		todo_detail_note.setClickable(true);
+    		todo_detail_over.setClickable(true);
+    		todo_detail_wait.setClickable(true);
+    		todo_detail_continue.setClickable(true);
     		
     		todo_detail_start_text.setTextColor(Color.RED);
     	}
@@ -221,7 +237,23 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.todo_detail_go:
-			
+			 Dialog dialog_go = new AlertDialog.Builder(this)
+	         .setIcon(android.R.drawable.btn_star).setTitle("动身")
+	         .setMessage("确定动身执行任务？")
+	         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}).setNeutralButton("确定", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					mService.setTodoState(mTodo.todoId, TODO_SET_STATE_GO);
+		    		todo_detail_go_text.setTextColor(Color.WHITE);
+		    		todo_detail_go.setClickable(true);
+		    		todo_detail_start_text.setTextColor(Color.RED);
+		    		todo_detail_start.setClickable(true);
+				}
+			}).create();
+			 dialog_go.show();
 			break;
 		case R.id.todo_detail_start:
 			 Dialog dialog_start = new AlertDialog.Builder(this)
@@ -239,9 +271,11 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 								setGuiRecording();
 							}
 				    		todo_detail_start_text.setTextColor(Color.WHITE);
-				    		todo_detail_start.setClickable(false);
+				    		todo_detail_start.setClickable(true);
 				    		todo_detail_over_text.setTextColor(Color.RED);
 				    		todo_detail_over.setClickable(true);
+				    		
+				    		todo_detail_wait_text.setTextColor(Color.RED);
 						}
 					}).setPositiveButton(R.string.todo_detail_start_after_play_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -254,9 +288,11 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 							}
 							
 				    		todo_detail_start_text.setTextColor(Color.WHITE);
-				    		todo_detail_start.setClickable(false);
+				    		todo_detail_start.setClickable(true);
 				    		todo_detail_over_text.setTextColor(Color.RED);
 				    		todo_detail_over.setClickable(true);
+				    		
+				    		todo_detail_wait_text.setTextColor(Color.RED);
 						}
 					}).create();
 			 dialog_start.show();
@@ -271,14 +307,54 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 			}).setPositiveButton(R.string.todo_detail_ok_over_text, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					mService.setTodoState(mTodo.todoId,APIUtils.TODO_STATE_OVER);
-					finish();
+					mService.setTodoState(mTodo.todoId,TODO_SET_STATE_OVER);
+					mService.stopRecording();
+					setGUIPreRecord();
+		    		todo_detail_wait_text.setTextColor(Color.WHITE);
+		    		todo_detail_over_text.setTextColor(Color.WHITE);
+		    		todo_detail_note_text.setTextColor(Color.RED);
 				}
 			}).create();
 			dialog_over.show();
 			break;
 		case R.id.todo_detail_continue:
 			
+			break;
+		case R.id.todo_detail_wait:
+			 Dialog dialog_wait = new AlertDialog.Builder(this)
+	         .setIcon(android.R.drawable.btn_star).setTitle("挂起工单")
+	         .setMessage("确定挂起工单，等待下次继续？")
+	         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}).setNeutralButton("确定", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					mService.setTodoState(mTodo.todoId, TODO_SET_STATE_WAIT);
+					mService.stopRecording();
+					setGUIPreRecord();
+		    		todo_detail_wait_text.setTextColor(Color.WHITE);
+		    		todo_detail_over_text.setTextColor(Color.WHITE);
+		    		todo_detail_note_text.setTextColor(Color.RED);
+				}
+			}).create();
+			 dialog_wait.show();
+			break;
+			
+		case R.id.todo_detail_note:
+			 Dialog dialog_note = new AlertDialog.Builder(this)
+	         .setIcon(android.R.drawable.btn_star).setTitle("填写工单")
+	         .setMessage("确定已完成（或挂起）工单，填写工单信息？")
+	         .setNegativeButton(R.string.todo_detail_cancle_text, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			}).setNeutralButton("确定", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					startActivity(new Intent(mContext, NoteActivity.class));
+				}
+			}).create();
+			 dialog_note.show();
 			break;
 		case R.id.stop_play_music:
 			if (isPlayingMusic) {
@@ -298,7 +374,8 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	protected void onResume() {
 		super.onResume();
 		if (mService != null) {
-			mService.cancelNotification();
+			if (mService.isRecording()) 
+				mService.cancelNotification();
 		}
 		Log.d(TAG, "state==="+mRecordState);
 		
@@ -371,11 +448,11 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			String recorderText = getString(R.string.notification_text_recorder_pausing);
 			if (mService.isRecording()) {
 				recorderText = getString(R.string.notification_text_recorder_recording);
+				Intent notificationIntent = new Intent(this, ToDoDetailActivity.class);
+				notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_SINGLE_TOP);
+				mService.showNotification(notificationIntent, recorderText);
 			}
-			Intent notificationIntent = new Intent(this, ToDoDetailActivity.class);
-			notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-					| Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			mService.showNotification(notificationIntent, recorderText);
 		}
 	}
 	
@@ -522,7 +599,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		
 		try {
 			mService.startRecording(mSampleRate,mResolution, getRecordingFile());
-			mService.setTodoState(mTodo.todoId,APIUtils.TODO_STATE_START);
+			mService.setTodoState(mTodo.todoId,TODO_SET_STATE_START);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

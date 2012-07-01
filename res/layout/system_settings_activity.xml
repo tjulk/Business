@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/body_background"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/orca_title_bar_top_background"
+        android:gravity="center" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:text="@string/login_logo_text"
+            android:textColor="@color/white"
+            android:textSize="22dip" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/personnal_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_left"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/statistics_month"
+                android:text="个人档案" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/password_btn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dashboard_top_right"
+            android:clickable="true" >
+
+            <TextView
+                style="@style/DashboardButton"
+                android:drawableTop="@drawable/statistics_day"
+                android:text="密码修改" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/systemsetting_person_title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="@drawable/bg_subtitle"
+        android:gravity="center"
+        android:text="个人档案"
+        android:textSize="18dip" />
+
+    <LinearLayout
+        android:id="@+id/person_panel"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/peixun_title"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:text="培训数量："
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:id="@+id/peixun_number"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:text="服务能力："
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:id="@+id/fuwu_nengli"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:text="个人资历："
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:id="@+id/geren_zili"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:text="技术能力："
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <WebView
+            android:paddingLeft="30dip" android:paddingRight="30dip"
+            android:id="@+id/jishunnegli"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:text="工单统计："
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="5dip"
+                android:paddingTop="5dip"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large" />
+        </LinearLayout>
+
+        <WebView
+            android:paddingLeft="30dip" android:paddingRight="30dip"
+            android:id="@+id/gongdantongji"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/password_panel"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:padding="30dip"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/old_password"
+                android:layout_width="0dip"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:layout_weight="1"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="输入密码"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="9.0dip"
+                android:password="true"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/new_password"
+                android:layout_width="0dip"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:layout_weight="1"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="输入新密码"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="9.0dip"
+                android:password="true"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/old_password"
+                android:layout_width="0dip"
+                android:layout_height="42.0dip"
+                android:layout_marginBottom="17.0dip"
+                android:layout_marginTop="16.0dip"
+                android:layout_weight="1"
+                android:background="@drawable/login_inputfield_background"
+                android:hint="再次输入新密码"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:padding="9.0dip"
+                android:password="true"
+                android:singleLine="true"
+                android:textSize="14.0sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login_login"
+            android:layout_width="fill_parent"
+            android:layout_height="42.0dip"
+            android:background="@drawable/login_button_background"
+            android:gravity="center"
+            android:paddingBottom="0.0dip"
+            android:paddingTop="0.0dip"
+            android:text="修改密码"
+            android:textColor="@drawable/solid_white"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

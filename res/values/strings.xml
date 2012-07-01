@@ -15,9 +15,9 @@
     <string name="system_settings_text">系统设置</string>
     <string name="go_text">动身</string>
     <string name="start_text">开始</string>
-    <string name="note_text">填表</string>
-    <string name="wait_text">待件</string>
-    <string name="over_text">结束</string>
+    <string name="note_text">填单</string>
+    <string name="wait_text">挂起</string>
+    <string name="over_text">完成</string>
     <string name="continue_text">继续</string>
     <string name="todo_id_text">工单标识：</string>
     <string name="todo_time_text">上门时间：</string>
@@ -63,4 +63,7 @@
     <string name="todo_type_today_todolist_text">今日订单列表</string>
     <string name="todo_type_tomorrow_todolist_text">明日订单列表</string>
     <string name="todo_type_todolist_text">订单列表</string>
+    
+    <string name="statistics_start_month">开始月份</string>
+    <string name="statistics_end_month">结束月份</string>
 </resources>
