@@ -18,6 +18,7 @@ import android.media.AudioFormat;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -246,11 +247,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 			}).setNeutralButton("确定", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					mService.setTodoState(mTodo.todoId, TODO_SET_STATE_GO);
-		    		todo_detail_go_text.setTextColor(Color.WHITE);
-		    		todo_detail_go.setClickable(true);
-		    		todo_detail_start_text.setTextColor(Color.RED);
-		    		todo_detail_start.setClickable(true);
+					loadHandler.sendEmptyMessage(5);
 				}
 			}).create();
 			 dialog_go.show();
@@ -265,34 +262,11 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 						}
 					}).setNeutralButton(R.string.todo_detail_display_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							if (isPlayingMusic) {
-								mService.playAudio();
-							} else {
-								setGuiRecording();
-							}
-				    		todo_detail_start_text.setTextColor(Color.WHITE);
-				    		todo_detail_start.setClickable(true);
-				    		todo_detail_over_text.setTextColor(Color.RED);
-				    		todo_detail_over.setClickable(true);
-				    		
-				    		todo_detail_wait_text.setTextColor(Color.RED);
+							loadHandler.sendEmptyMessage(0);
 						}
 					}).setPositiveButton(R.string.todo_detail_start_after_play_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							isPlayingMusic = true;
-							stop_play_music.setVisibility(View.VISIBLE);
-							if (isPlayingMusic) {
-								mService.playAudio();
-							} else {
-								setGuiRecording();
-							}
-							
-				    		todo_detail_start_text.setTextColor(Color.WHITE);
-				    		todo_detail_start.setClickable(true);
-				    		todo_detail_over_text.setTextColor(Color.RED);
-				    		todo_detail_over.setClickable(true);
-				    		
-				    		todo_detail_wait_text.setTextColor(Color.RED);
+							loadHandler.sendEmptyMessage(1);
 						}
 					}).create();
 			 dialog_start.show();
@@ -307,18 +281,13 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 			}).setPositiveButton(R.string.todo_detail_ok_over_text, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					mService.setTodoState(mTodo.todoId,TODO_SET_STATE_OVER);
-					mService.stopRecording();
-					setGUIPreRecord();
-		    		todo_detail_wait_text.setTextColor(Color.WHITE);
-		    		todo_detail_over_text.setTextColor(Color.WHITE);
-		    		todo_detail_note_text.setTextColor(Color.RED);
+					loadHandler.sendEmptyMessage(2);
 				}
 			}).create();
 			dialog_over.show();
 			break;
 		case R.id.todo_detail_continue:
-			
+			finish();
 			break;
 		case R.id.todo_detail_wait:
 			 Dialog dialog_wait = new AlertDialog.Builder(this)
@@ -330,12 +299,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 			}).setNeutralButton("确定", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					mService.setTodoState(mTodo.todoId, TODO_SET_STATE_WAIT);
-					mService.stopRecording();
-					setGUIPreRecord();
-		    		todo_detail_wait_text.setTextColor(Color.WHITE);
-		    		todo_detail_over_text.setTextColor(Color.WHITE);
-		    		todo_detail_note_text.setTextColor(Color.RED);
+					loadHandler.sendEmptyMessage(3);
 				}
 			}).create();
 			 dialog_wait.show();
@@ -357,12 +321,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			 dialog_note.show();
 			break;
 		case R.id.stop_play_music:
-			if (isPlayingMusic) {
-				mService.stopPlayAudio();
-				setGuiRecording();
-				stop_play_music.setVisibility(View.GONE);
-			isPlayingMusic = false;
-			}
+			loadHandler.sendEmptyMessage(4);
 		default:
 			break;
 		}
@@ -389,6 +348,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			break;
 
 		default:
+			setGUIPreRecord();
 			break;
 		}
 		mButtonPauseResumeRecorder.setOnClickListener(new View.OnClickListener() {
@@ -435,10 +395,15 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		});
 	}
  
+	public void onPause() {
+		super.onPause();
+
+	}
 	
 	@Override
 	public void onStop() {
 		super.onStop();
+		
 		mStatusHandler.removeCallbacks(mShowStatusTask);
 		mVolumeHandler.removeCallbacks(mShowVolumeTask);
 		mButtonPauseResumeRecorder.setOnClickListener(null);
@@ -480,7 +445,8 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 					}
 				}).create();
 				dialog.show();
-			}
+			} else
+				super.onBackPressed();
 		} else if (isPlayingMusic) {
 				 Dialog dialog = new AlertDialog.Builder(mContext)
 		         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_is_playing_music_text)
@@ -525,6 +491,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		mShowVolumeTask = new Runnable() {
 			public void run() {
 				if (mService != null&&mService.isRecording()) {
+					//System.out.println("+++++mShowVolumeTask"+makeBar(scaleVolume(mService.getMaxAmplitude())));
 					mVolume.setText(makeBar(scaleVolume(mService.getMaxAmplitude())));
 					mVolumeHandler.postDelayed(this, VOLUME);
 				}
@@ -561,7 +528,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	private int mResolution = AudioFormat.ENCODING_PCM_16BIT;
 	private int mSampleRate = 16000;
 	private final static int  STATUS = 1000;
-	private final static int  VOLUME = 0;
+	private final static int  VOLUME = 10;
 	private static final double LOG_OF_MAX_VOLUME = Math.log10((double) Short.MAX_VALUE);
 	private RecorderService mService;
 	private boolean mIsBound = false;
@@ -592,7 +559,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		mRecordState = 1;
 		
 		setRecorderStyle(getResources().getColor(R.color.processing));
-		mStatusHandler.postDelayed(mShowStatusTask, STATUS);
 
 		mRecorderStatus.setBackgroundResource(R.drawable.listen_outer_glow);
 		mButtonPauseResumeRecorder.setBackgroundResource(R.drawable.ic_mic_cd);
@@ -658,4 +624,72 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		}
 	}
     
+	
+	private Handler loadHandler = new Handler() {
+
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 0:
+				if (isPlayingMusic) {
+					mService.playAudio();
+				} else {
+					setGuiRecording();
+				}
+	    		todo_detail_start_text.setTextColor(Color.WHITE);
+	    		todo_detail_start.setClickable(true);
+	    		todo_detail_over_text.setTextColor(Color.RED);
+	    		todo_detail_over.setClickable(true);
+	    		
+	    		todo_detail_wait_text.setTextColor(Color.RED);
+				break;
+			case 1:
+				isPlayingMusic = true;
+				stop_play_music.setVisibility(View.VISIBLE);
+				if (isPlayingMusic) {
+					mService.playAudio();
+				} else {
+					setGuiRecording();
+				}
+				
+	    		todo_detail_start_text.setTextColor(Color.WHITE);
+	    		todo_detail_start.setClickable(true);
+	    		todo_detail_over_text.setTextColor(Color.RED);
+	    		todo_detail_over.setClickable(true);
+	    		
+	    		todo_detail_wait_text.setTextColor(Color.RED);
+				break;
+			case 2:
+				mService.setTodoState(mTodo.todoId,TODO_SET_STATE_OVER);
+				mService.stopRecording();
+				setGUIPreRecord();
+	    		todo_detail_wait_text.setTextColor(Color.WHITE);
+	    		todo_detail_over_text.setTextColor(Color.WHITE);
+	    		todo_detail_note_text.setTextColor(Color.RED);
+				break;
+			case 3:					
+				mService.setTodoState(mTodo.todoId, TODO_SET_STATE_WAIT);
+				mService.stopRecording();
+				setGUIPreRecord();
+    			todo_detail_wait_text.setTextColor(Color.WHITE);
+    			todo_detail_over_text.setTextColor(Color.WHITE);
+    			todo_detail_note_text.setTextColor(Color.RED);
+    			break;
+			case 4:
+				if (isPlayingMusic) {
+					mService.stopPlayAudio();
+					setGuiRecording();
+					stop_play_music.setVisibility(View.GONE);
+				isPlayingMusic = false;
+				}
+				break;
+			case 5:
+				mService.setTodoState(mTodo.todoId, TODO_SET_STATE_GO);
+	    		todo_detail_go_text.setTextColor(Color.WHITE);
+	    		todo_detail_go.setClickable(true);
+	    		todo_detail_start_text.setTextColor(Color.RED);
+	    		todo_detail_start.setClickable(true);
+				break;
+			}
+		}
+	};
 }

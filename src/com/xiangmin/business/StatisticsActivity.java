@@ -74,7 +74,7 @@ public class StatisticsActivity extends Activity implements OnClickListener{
         thisYear = time.year;
         thisMonth = time.month;
         mContext = this;
-        for (int i = 12-thisMonth ; i<=12 ; i++) {
+        for (int i = thisMonth+2 ; i<=12 ; i++) {
         	months.add((thisYear - 1 + "-" + (i>9? i: ("0"+i))));
         }
         

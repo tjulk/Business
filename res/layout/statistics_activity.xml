@@ -101,7 +101,7 @@
             <Button
                 android:id="@+id/start_check_btn"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="50.0dip"
                 android:background="@drawable/login_button_background"
                 android:textColor="@drawable/solid_white"
             	android:textStyle="bold" 
@@ -150,7 +150,7 @@
             <Button
                 android:id="@+id/start_day_check_btn"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="50.0dip"
                 android:layout_weight="1"
                 android:background="@drawable/login_button_background"
                 android:textColor="@drawable/solid_white"

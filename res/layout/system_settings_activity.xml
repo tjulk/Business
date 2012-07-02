@@ -288,7 +288,7 @@
             android:orientation="horizontal" >
 
             <EditText
-                android:id="@+id/old_password"
+                android:id="@+id/reinput_password"
                 android:layout_width="0dip"
                 android:layout_height="42.0dip"
                 android:layout_marginBottom="17.0dip"
@@ -305,7 +305,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/login_login"
+            android:id="@+id/password_submit"
             android:layout_width="fill_parent"
             android:layout_height="42.0dip"
             android:background="@drawable/login_button_background"

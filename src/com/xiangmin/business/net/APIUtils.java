@@ -443,9 +443,78 @@ public class APIUtils {
 	
 	/*------------------------ ------------------getmPersonSkill end------------------------------------------------------*/
 	
+	/*------------------------ ------------------changePassword end------------------------------------------------------*/
+	
+	public static final int CHANGE_PASSWORD_SUCCESS = 2;
+	public static final int CHANGE_PASSWORD_FAILED = 3;
 	
 	
+	public static String changePasswordXML(String newPassword) {
+		final double longitude = BusinessApplication.getInstance().mLongitude;
+		final double latitude = BusinessApplication.getInstance().mLatitude;
+		final String userName = BusinessApplication.getInstance().todoEngineer;
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+				+ "<CXPModifyPasswordAPK><NewPassword>" +newPassword + "</newPassword><UserName>" + userName
+				+ "</UserName><Longitude>" + longitude
+				+ "</Longitude><Latitude>" + latitude
+				+ "</Latitude></CXPModifyPasswordAPK>";
+	}
 	
+	public static int changePassword(String newPassword) {
+		final String xml = changePasswordXML(newPassword);
+		System.out.println("====xml"+xml);
+		final String result = XMLHeader+httpConnect(URL, xml);
+		if (result != ERROR) {
+			if (result.contains("1"))
+				return CHANGE_PASSWORD_SUCCESS;
+			else if (result.contains("0"))
+				return CHANGE_PASSWORD_FAILED;
+			else
+				return CHANGE_PASSWORD_FAILED;
+		} else
+			return CHANGE_PASSWORD_FAILED;
+	}
+	
+	/*------------------------ ------------------changePassword end------------------------------------------------------*/
+	
+	/*------------------------ ------------------submitTodoDetail ------------------------------------------------------*/
+	public static final int SUBMIT_TODO_DETAIL_SUCCESS = 1; 
+	public static final int SUBMIT_TODO_DETAIL_FAILED = 2; 
+	public static String submitTodoDetailXML(String chanpinxinghao_t,String guzhangleixing_t,String baowaishoufeijine_t,String shifoukaijufapiao_t,String fapiaotaitou_t) {
+		final double longitude = BusinessApplication.getInstance().mLongitude;
+		final double latitude = BusinessApplication.getInstance().mLatitude;
+		final String userName = BusinessApplication.getInstance().todoEngineer;
+		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+				+ "<CXPUpdateOrderAPK><ModelNumber>" + chanpinxinghao_t
+				+ "</ModelNumber>" + "<FaultType>" + guzhangleixing_t
+				+ "</FaultType>" + "<IsNeedInvoice>" + shifoukaijufapiao_t
+				+ "</IsNeedInvoice>" + "<InvoiceName>" + fapiaotaitou_t
+				+ "</InvoiceName>" + "<WarrantyExpiredMoney>"
+				+ baowaishoufeijine_t + "</WarrantyExpiredMoney>"
+				+ "<UserName>" + userName + "</UserName><Longitude>"
+				+ longitude + "</Longitude><Latitude>" + latitude
+				+ "</Latitude></CXPUpdateOrderAPK>";
+	}
+	
+	public static int submitTodoDetail(String chanpinxinghao_t,String guzhangleixing_t,String baowaishoufeijine_t,String shifoukaijufapiao_t,String fapiaotaitou_t) {
+		final String xml = submitTodoDetailXML(chanpinxinghao_t,guzhangleixing_t,baowaishoufeijine_t,shifoukaijufapiao_t,fapiaotaitou_t);
+		System.out.println("==== submitTodoDetail xml"+xml);
+		final String result = XMLHeader+httpConnect(URL, xml);
+		
+		System.out.println("===submitTodoDetail"+result);
+		
+		if (result != ERROR) {
+			if (result.contains("1"))
+				return SUBMIT_TODO_DETAIL_SUCCESS;
+			else if (result.contains("0"))
+				return SUBMIT_TODO_DETAIL_FAILED;
+			else
+				return SUBMIT_TODO_DETAIL_FAILED;
+		} else
+			return SUBMIT_TODO_DETAIL_FAILED;
+	}
+	
+	/*------------------------ ------------------submitTodoDetail end------------------------------------------------------*/
 	
 	public static String httpConnect(String URL, String xml) {
 		HttpPost httpPost = new HttpPost(URL);
