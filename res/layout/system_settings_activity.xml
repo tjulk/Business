@@ -52,7 +52,7 @@
                 android:text="密码修改" />
         </LinearLayout>
     </LinearLayout>
-
+    <!--
     <TextView
         android:id="@+id/systemsetting_person_title"
         android:layout_width="fill_parent"
@@ -61,11 +61,12 @@
         android:gravity="center"
         android:text="个人档案"
         android:textSize="18dip" />
-
+    -->
     <LinearLayout
         android:id="@+id/person_panel"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -234,6 +235,7 @@
         android:id="@+id/password_panel"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:padding="30dip"
         android:visibility="gone" >
@@ -316,5 +318,20 @@
             android:textColor="@drawable/solid_white"
             android:textStyle="bold" />
     </LinearLayout>
-
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        >
+        <TextView
+            android:id="@+id/todo_engineer"
+            android:layout_width="fill_parent"
+            android:layout_height="42dip"
+            android:background="@drawable/bg_subtitle"
+            android:gravity="center"
+            android:padding="8dip"
+            android:text="祥民技术 版权所有V1.0"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+    </LinearLayout>
 </LinearLayout>

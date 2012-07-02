@@ -309,13 +309,25 @@
             android:textSize="20sp" />
     </RelativeLayout>
     
-    <TextView 
-        android:id="@+id/todo_engineer"
-        android:textColor="@color/white"
-        android:textSize="18dip"
-        android:padding="8dip"
-        android:layout_width="fill_parent" android:layout_height="wrap_content" android:background="@drawable/bg_subtitle"
-        android:gravity="center"
-        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        >
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/divider_horizontal" />
+        <TextView
+            android:id="@+id/todo_engineer"
+            android:layout_width="fill_parent"
+            android:layout_height="42dip"
+            android:background="@drawable/bg_subtitle"
+            android:gravity="center"
+            android:padding="8dip"
+            android:text="祥民技术 版权所有V1.0"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+    </LinearLayout>
 
 </LinearLayout>

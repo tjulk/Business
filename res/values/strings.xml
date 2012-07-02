@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="xiangmin">XIANGMIN</string>
+    <string name="xiangmin_name">祥民家电</string>
     <string name="app_name">祥民家电服务移动平台</string>
     <string name="notification_ticker_recorder">正在后台录音</string>
     <string name="error_cant_create_recorder">ERROR: Failed to create an audio recorder</string>

@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ public class AnnounceActivity extends Activity{
 	
 	private AnnounceListAdapter mAnnounceListAdapter;
 	
-	private TextView announceListTitle;
+	//private TextView announceListTitle;
 	
 	public final static String SER_KEY = "com.xiangin.business.announce";
 	
@@ -43,9 +44,10 @@ public class AnnounceActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.notification_activity);
         mContext = this;
-        announceListTitle = (TextView) findViewById(R.id.announce_list_title);
+        //announceListTitle = (TextView) findViewById(R.id.announce_list_title);
         mAnnouncelist = (ListView) findViewById(R.id.notificationlist);
         mAnnouncelist.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -87,7 +89,7 @@ public class AnnounceActivity extends Activity{
 			case 0:
 				mAnnounceListAdapter = new AnnounceListAdapter(getLayoutInflater(), mAnnounces);
 				mAnnouncelist.setAdapter(mAnnounceListAdapter);
-		        announceListTitle.setText(announceListTitle.getText()+"("+mAnnounces.size()+")");
+		        //announceListTitle.setText(announceListTitle.getText()+"("+mAnnounces.size()+")");
 				break;
 			case 1:
 				break;

@@ -22,6 +22,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -75,7 +76,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	private TextView todo_state;
 	
 	private Todo mTodo;
-	private TextView todoEngineer;
 	
 	private Context mContext;
 	
@@ -93,6 +93,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.tododetail_activity);
         mContext = this;
         doBindService();
@@ -124,9 +125,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
     	todo_address = (TextView) findViewById(R.id.todo_address);
     	todo_phonenumber = (TextView) findViewById(R.id.todo_phonenumber);
     	todo_state = (TextView) findViewById(R.id.todo_state);
-        
-        todoEngineer = (TextView) findViewById(R.id.todo_engineer);
-        todoEngineer.setText(getResources().getString(R.string.todo_detail_username_text)+BusinessApplication.getInstance().todoEngineer);
         
         todo_detail_panel = (LinearLayout) findViewById(R.id.todo_detail_panel);
         recoder_panel = (RelativeLayout) findViewById(R.id.recoder_panel);
@@ -263,6 +261,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 					}).setNeutralButton(R.string.todo_detail_display_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							loadHandler.sendEmptyMessage(0);
+							
 						}
 					}).setPositiveButton(R.string.todo_detail_start_after_play_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
@@ -348,7 +347,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			break;
 
 		default:
-			setGUIPreRecord();
 			break;
 		}
 		mButtonPauseResumeRecorder.setOnClickListener(new View.OnClickListener() {
@@ -623,7 +621,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			setGuiRecording();
 		}
 	}
-    
 	
 	private Handler loadHandler = new Handler() {
 
@@ -662,6 +659,8 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				mService.setTodoState(mTodo.todoId,TODO_SET_STATE_OVER);
 				mService.stopRecording();
 				setGUIPreRecord();
+				todo_detail_panel.setVisibility(View.VISIBLE);
+				recoder_panel.setVisibility(View.GONE);
 	    		todo_detail_wait_text.setTextColor(Color.WHITE);
 	    		todo_detail_over_text.setTextColor(Color.WHITE);
 	    		todo_detail_note_text.setTextColor(Color.RED);
@@ -670,6 +669,8 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				mService.setTodoState(mTodo.todoId, TODO_SET_STATE_WAIT);
 				mService.stopRecording();
 				setGUIPreRecord();
+				todo_detail_panel.setVisibility(View.VISIBLE);
+				recoder_panel.setVisibility(View.GONE);
     			todo_detail_wait_text.setTextColor(Color.WHITE);
     			todo_detail_over_text.setTextColor(Color.WHITE);
     			todo_detail_note_text.setTextColor(Color.RED);

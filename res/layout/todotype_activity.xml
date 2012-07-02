@@ -68,7 +68,27 @@
         android:id="@+id/todolist"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:divider="@drawable/divider_horizontal" 
         android:cacheColorHint="#00000000"/>
-
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        >
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@drawable/divider_horizontal" />
+        <TextView
+            android:id="@+id/todo_engineer"
+            android:layout_width="fill_parent"
+            android:layout_height="42dip"
+            android:background="@drawable/bg_subtitle"
+            android:gravity="center"
+            android:padding="8dip"
+            android:text="祥民技术 版权所有V1.0"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+    </LinearLayout>
 </LinearLayout>
