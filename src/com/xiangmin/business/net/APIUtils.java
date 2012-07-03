@@ -183,8 +183,8 @@ public class APIUtils {
 		final String userName = BusinessApplication.getInstance().todoEngineer;
 		return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 				+ "<CXPReportLocationAPK><UserName>"
-				+ userName + "</UserName><Longitude>" + (float)longitude
-				+ "</Longitude><Latitude>" + (float)latitude
+				+ userName + "</UserName><Longitude>" + longitude
+				+ "</Longitude><Latitude>" + latitude
 				+ "</Latitude></CXPReportLocationAPK>";
 	}
 	

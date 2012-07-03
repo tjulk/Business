@@ -256,9 +256,10 @@ public class RecorderService extends ThemeService {
         String provider=locationManager.getBestProvider(criteria,true);
         if (provider!=null) {
         	Location location=locationManager.getLastKnownLocation(provider);
+        	
         	updateWithNewLocation(location);
         	//
-        	locationManager.requestLocationUpdates(provider, 60000, 0, locationListener);
+        	locationManager.requestLocationUpdates(provider, 1000, 0, locationListener);
         }
 	}
 	
@@ -287,13 +288,13 @@ public class RecorderService extends ThemeService {
 			double lng = location.getLongitude();
 			BusinessApplication.getInstance().mLatitude = lat;
 			BusinessApplication.getInstance().mLongitude = lng;
-			latLongString = "Latitude:" + lat + "\nLongitude:" + lng;
+			latLongString = "维度:" + lat + "\n经度:" + lng;
 		} else {
 			latLongString = "error";
 		}
-		//Toast.makeText(this, latLongString, Toast.LENGTH_SHORT).show();
+		System.out.println("###################"+latLongString);
+		Toast.makeText(this, latLongString, Toast.LENGTH_LONG).show();
 		APIUtils.sendGPS(this);
-		//APIUtils.getTodoCount(this);
 	}
 		
 	/**--------------------------------------gps info end----------------------------------------------*/
