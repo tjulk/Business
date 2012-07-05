@@ -280,7 +280,9 @@ public class APIUtils {
 			InputSource is = new InputSource(sr);  
 			Document document = (new SAXBuilder()).build(is);
 			Element employees=document.getRootElement();
-			List<Element> employeeList=employees.getChildren("Notice");
+			
+			Element CXPQueryNoticeAPKResult = employees.getChild("Notices");
+			List<Element> employeeList=CXPQueryNoticeAPKResult.getChildren("Notice");
 			for(int i=0;i<employeeList.size();i++) {
 				final Announce announce = new Announce();
 				Element el = employeeList.get(i);
@@ -402,7 +404,7 @@ public class APIUtils {
 				+ "</Longitude><Latitude>" + latitude
 				+ "</Latitude></CXPQueryArchivementAPK>";
 	}
-	public static PersonSkill getPersonSkill() {
+	public static String getPersonSkill() {
 		final String xml = getPersonSkillXML();
 		System.out.println("====xml"+xml);
 		final String result = XMLHeader+httpConnect(URL, xml);
@@ -410,34 +412,13 @@ public class APIUtils {
 		return parsePersonSkillXML(result);
 	}
 	
-	public static PersonSkill parsePersonSkillXML(String xmlString) {
-		PersonSkill personSkill = new PersonSkill();
-		try {
-			StringReader sr = new StringReader(xmlString);  
-			InputSource is = new InputSource(sr);  
-			Document document = (new SAXBuilder()).build(is);
-			Element employees=document.getRootElement();
+	public static String parsePersonSkillXML(String xmlString) {
+		String personSkill = "";
+			int jishustart = xmlString.indexOf("<ArchivementDetail>")+19;
+			int jishusend = xmlString.indexOf("</ArchivementDetail>");
 			
-			
-			personSkill.peixunshuliang = employees.getChildText("Training");
-			
-			personSkill.fuwunengli = employees.getChildText("ServiceAbility");
-			personSkill.gerenzili = employees.getChildText("PersonalQualification");
-			
-			int jishustart = xmlString.indexOf("<Skill>")+7;
-			int jishusend = xmlString.indexOf("</Skill>");
-			int tongjistart = xmlString.indexOf("<OrderSummary>")+14;
-			int tongjiend = xmlString.indexOf("</OrderSummary>");
-			personSkill.jishunengli = xmlString.substring(jishustart, jishusend);
-			personSkill.gongdantongji = xmlString.substring(tongjistart, tongjiend);
- 
-		} catch (JDOMException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			personSkill = xmlString.substring(jishustart, jishusend);
 		
-		System.out.println("=========="+personSkill.toString());
 		return personSkill;
 	}
 	

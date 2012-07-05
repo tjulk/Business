@@ -33,8 +33,8 @@
             android:clickable="true" >
 
             <TextView
+                android:id="@+id/month_text"
                 style="@style/DashboardButton"
-                android:drawableTop="@drawable/statistics_month"
                 android:text="按月统计" />
         </LinearLayout>
         <LinearLayout
@@ -46,8 +46,8 @@
             android:clickable="true" >
 
             <TextView
+                android:id="@+id/day_text"
                 style="@style/DashboardButton"
-                android:drawableTop="@drawable/statistics_day"
                 android:text="按日统计" />
         </LinearLayout>
     </LinearLayout>

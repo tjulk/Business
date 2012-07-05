@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,13 +33,9 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
 	private ProgressDialog progressDialog;
 	
 	private Context mContext;
-	private PersonSkill mPersonSkill;
-	
-	private TextView peixun_number;
-	private WebView jineng_number;
-	private TextView fuwu_nengli;
-	private TextView geren_zili;
-	private WebView gongdan_tongji;
+	private String mPersonSkill;
+
+	private WebView personnal_info;
 	
 	
 	private TextView old_password;
@@ -47,6 +44,9 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
 	private Button password_submit;
 	
 	private SharedPreferences mSetting;
+	
+	private TextView password_text;
+	private TextView personal_text;
 	
 	
 	
@@ -66,11 +66,10 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
         personnal_btn.setOnClickListener(this);
         password_btn.setOnClickListener(this);
         
-        peixun_number = (TextView) findViewById(R.id.peixun_number);
-        jineng_number = (WebView) findViewById(R.id.jishunnegli);
-        fuwu_nengli = (TextView) findViewById(R.id.fuwu_nengli);
-        geren_zili = (TextView) findViewById(R.id.geren_zili);
-        gongdan_tongji = (WebView) findViewById(R.id.gongdantongji);
+        password_text = (TextView) findViewById(R.id.password_text);
+        personal_text = (TextView) findViewById(R.id.personal_text);
+
+        personnal_info = (WebView) findViewById(R.id.personnal_info);
         
         old_password = (TextView) findViewById(R.id.old_password);
         new_password = (TextView) findViewById(R.id.new_password);
@@ -78,6 +77,8 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
         password_submit = (Button) findViewById(R.id.password_submit);
         password_submit.setOnClickListener(this);
         
+		password_text.setTextColor(getResources().getColor(R.color.white));
+		personal_text.setTextColor(Color.RED);
         getPersonList();
     }
 
@@ -87,11 +88,15 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
 		case R.id.personnal_btn:
 			password_panel.setVisibility(View.GONE);
 			person_panel.setVisibility(View.VISIBLE);
+			password_text.setTextColor(getResources().getColor(R.color.white));
+			personal_text.setTextColor(Color.RED);
 			getPersonList();
 			break;
 		case R.id.password_btn:
 			password_panel.setVisibility(View.VISIBLE);
 			person_panel.setVisibility(View.GONE);
+			password_text.setTextColor(Color.RED);
+			personal_text.setTextColor(getResources().getColor(R.color.white));
 			break;
 		case R.id.password_submit:
 			checkPassword();
@@ -146,13 +151,9 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-		        String gongdantongjiHtml = "<html><head><meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ /></head><body>" + mPersonSkill.gongdantongji + "</body></html>";
-		        String jishunengliHtml = "<html><head><meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ /></head><body>" + mPersonSkill.jishunengli + "</body></html>";
-		        peixun_number.setText(mPersonSkill.peixunshuliang);
-		        fuwu_nengli.setText(mPersonSkill.fuwunengli);
-		        geren_zili.setText(mPersonSkill.gerenzili);
-		        jineng_number.loadDataWithBaseURL("",jishunengliHtml, "text/html", "utf-8",""); 
-		        gongdan_tongji.loadDataWithBaseURL("",gongdantongjiHtml, "text/html", "utf-8",""); 
+		        String mPersonSkillHtml = "<html><head><meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ /></head><body>" + mPersonSkill + "</body></html>";
+		        personnal_info.loadDataWithBaseURL("",mPersonSkillHtml, "text/html", "utf-8",""); 
+		        
 				password_panel.setVisibility(View.GONE);
 				person_panel.setVisibility(View.VISIBLE);
 				break;

@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,10 +37,12 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
 	private LinearLayout mTodayTodoList;
 	private LinearLayout mTomorrowTodoList;
 	
-	private TextView todoListTitle;
 	private ProgressDialog progressDialog;
 	private SharedPreferences mSetting;
 	private List<Todo> todos;
+	
+	private TextView today_todolist;
+	private TextView tomorrw_todolist;
 	
     /** Called when the activity is first created. */
     @Override
@@ -50,6 +53,11 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
         setContentView(R.layout.todotype_activity);
         mContext = this;
         mSetting = mContext.getSharedPreferences(Utils.PREFERENCE_NAME, Context.MODE_PRIVATE);
+        
+        today_todolist = (TextView) findViewById(R.id.today_todolist);
+        tomorrw_todolist = (TextView) findViewById(R.id.tomorrw_todolist);
+        
+        
         mTodolist = (ListView) findViewById(R.id.todolist);
         mTodolist.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -67,7 +75,6 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
         mTomorrowTodoList = (LinearLayout) findViewById(R.id.tomorrow_todo_list);
         mTodayTodoList.setOnClickListener(this);
         mTomorrowTodoList.setOnClickListener(this);
-        todoListTitle = (TextView) findViewById(R.id.todo_list_title);
         Utils.showNetWorkError(mContext);
 		getTodoList(APIUtils.TYPE_TODAY);
     }
@@ -113,19 +120,22 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
 	private Handler loadHandler = new Handler() {
 
 		public void handleMessage(Message msg) {
+	        mTodoListAdapter = new TodoListAdapter(getLayoutInflater(), todos);
+	        mTodolist.setAdapter(mTodoListAdapter);
 			switch (msg.what) {
 			case 0:
-		        mTodoListAdapter = new TodoListAdapter(getLayoutInflater(), todos);
-		        mTodolist.setAdapter(mTodoListAdapter);
-		        todoListTitle.setText(getResources().getString(R.string.todo_type_today_todolist_text)+"("+todos.size()+")");
+		        today_todolist.setText("今日工单"+"("+todos.size()+")");
+		        tomorrw_todolist.setText("明日工单");
+		        today_todolist.setTextColor(Color.RED);
+		        tomorrw_todolist.setTextColor(getResources().getColor(R.color.white));
 				break;
 			case 1:
-		        mTodoListAdapter = new TodoListAdapter(getLayoutInflater(), todos);
-		        mTodolist.setAdapter(mTodoListAdapter);
-				todoListTitle.setText(getResources().getString(R.string.todo_type_tomorrow_todolist_text)+"("+todos.size()+")");
+				today_todolist.setText("今日工单");
+				tomorrw_todolist.setText("明日工单"+"("+todos.size()+")");
+		        today_todolist.setTextColor(getResources().getColor(R.color.white));
+		        tomorrw_todolist.setTextColor(Color.RED);
 				break;
 			case 2:
-				todoListTitle.setText(R.string.todo_type_todolist_text);
 				break;
 			}
 		}

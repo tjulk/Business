@@ -33,8 +33,8 @@
             android:clickable="true" >
 
             <TextView
+                android:id="@+id/personal_text"
                 style="@style/DashboardButton"
-                android:drawableTop="@drawable/statistics_month"
                 android:text="个人档案" />
         </LinearLayout>
 
@@ -47,188 +47,22 @@
             android:clickable="true" >
 
             <TextView
+                android:id="@+id/password_text"
                 style="@style/DashboardButton"
-                android:drawableTop="@drawable/statistics_day"
                 android:text="密码修改" />
         </LinearLayout>
     </LinearLayout>
-    <!--
-    <TextView
-        android:id="@+id/systemsetting_person_title"
-        android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:background="@drawable/bg_subtitle"
-        android:gravity="center"
-        android:text="个人档案"
-        android:textSize="18dip" />
-    -->
+
     <LinearLayout
         android:id="@+id/person_panel"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:orientation="vertical" >
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/peixun_title"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:text="培训数量："
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-
-            <TextView
-                android:id="@+id/peixun_number"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:text="服务能力："
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-
-            <TextView
-                android:id="@+id/fuwu_nengli"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:text="个人资历："
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-
-            <TextView
-                android:id="@+id/geren_zili"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:text="技术能力："
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
         <WebView
-            android:paddingLeft="30dip" android:paddingRight="30dip"
-            android:id="@+id/jishunnegli"
+            android:id="@+id/personnal_info"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:text="工单统计："
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-
-            <TextView
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:paddingBottom="5dip"
-                android:paddingTop="5dip"
-                android:singleLine="true"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_large" />
-        </LinearLayout>
-
-        <WebView
-            android:paddingLeft="30dip" android:paddingRight="30dip"
-            android:id="@+id/gongdantongji"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="fill_parent" />
     </LinearLayout>
 
     <LinearLayout

@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiangmin.business.adapters.StatisticsListAdapter;
@@ -65,6 +67,10 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 	private Button mDayStart;
 	private Button mDayEnd;
 	
+	private TextView month_text;
+	private TextView day_text;
+	
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +98,9 @@ public class StatisticsActivity extends Activity implements OnClickListener{
         end_month.setAdapter(adapter);
         start_month.setSelection(10);
         end_month.setSelection(11);
+        
+        month_text = (TextView) findViewById(R.id.month_text);
+        day_text = (TextView) findViewById(R.id.day_text);
         
         statistics_list = (ListView) findViewById(R.id.statistics_list);
         month_panel = (LinearLayout) findViewById(R.id.month_panel);
@@ -129,6 +138,9 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 		mDayStart.setOnClickListener(new DateClickListener(mStartTime));
 		mDayEnd.setOnClickListener(new DateClickListener(mEndTime));
 		populateWhen();
+		
+		month_text.setTextColor(Color.RED);
+        day_text.setTextColor(getResources().getColor(R.color.white));
     }
     
 	private void populateWhen() {
@@ -233,11 +245,16 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 			month_panel.setVisibility(View.VISIBLE);
 			day_panel.setVisibility(View.GONE);
 			statistics_list.setVisibility(View.GONE);
+			
+			month_text.setTextColor(Color.RED);
+	        day_text.setTextColor(getResources().getColor(R.color.white));
 			break;
 		case R.id.statistics_day_btn:
 			month_panel.setVisibility(View.GONE);
 			day_panel.setVisibility(View.VISIBLE);
 			statistics_list.setVisibility(View.GONE);
+			day_text.setTextColor(Color.RED);
+			month_text.setTextColor(getResources().getColor(R.color.white));
 			break;
 		default:
 			break;
