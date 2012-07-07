@@ -6,6 +6,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,8 +31,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiangmin.business.models.Todo;
+import com.xiangmin.business.net.APIUtils;
 import com.xiangmin.business.service.RecorderService;
 import com.xiangmin.business.utils.Utils;
 import com.xiangmin.business.voice.Dirs;
@@ -86,7 +89,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	private LinearLayout todo_detail_panel;
 	private RelativeLayout recoder_panel;
 	private Button stop_play_music;
-	
+	private ProgressDialog progressDialog;
 	
     /** Called when the activity is first created. */
     @Override
@@ -245,7 +248,17 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 			}).setNeutralButton("确定", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					loadHandler.sendEmptyMessage(5);
+					progressDialog = ProgressDialog.show(mContext,
+							"","正在与服务器同步状态，请稍候...", true, false);
+					new Thread() {
+						@Override
+						public void run() {
+							boolean result = mService.setTodoState(mTodo.todoId, TODO_SET_STATE_GO);
+							progressDialog.dismiss();
+							showToast(result);
+							loadHandler.sendEmptyMessage(5);
+						}
+					}.start();
 				}
 			}).create();
 			 dialog_go.show();
@@ -260,12 +273,35 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 						}
 					}).setNeutralButton(R.string.todo_detail_display_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							loadHandler.sendEmptyMessage(0);
+							
+							progressDialog = ProgressDialog.show(mContext,
+									"","正在与服务器同步状态，请稍候...", true, false);
+							new Thread() {
+								@Override
+								public void run() {
+									boolean result = mService.setTodoState(mTodo.todoId,TODO_SET_STATE_START);
+									mService.stopRecording();
+									progressDialog.dismiss();
+									showToast(result);
+									loadHandler.sendEmptyMessage(0);
+								}
+							}.start();
 							
 						}
 					}).setPositiveButton(R.string.todo_detail_start_after_play_text, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							loadHandler.sendEmptyMessage(1);
+							progressDialog = ProgressDialog.show(mContext,
+									"","正在与服务器同步状态，请稍候...", true, false);
+							new Thread() {
+								@Override
+								public void run() {
+									boolean result = mService.setTodoState(mTodo.todoId,TODO_SET_STATE_START);
+									mService.stopRecording();
+									progressDialog.dismiss();
+									showToast(result);
+									loadHandler.sendEmptyMessage(1);
+								}
+							}.start();
 						}
 					}).create();
 			 dialog_start.show();
@@ -280,7 +316,19 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 			}).setPositiveButton(R.string.todo_detail_ok_over_text, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					loadHandler.sendEmptyMessage(2);
+					
+					progressDialog = ProgressDialog.show(mContext,
+							"","正在与服务器同步状态，请稍候...", true, false);
+					new Thread() {
+						@Override
+						public void run() {
+							boolean result = mService.setTodoState(mTodo.todoId,TODO_SET_STATE_OVER);
+							mService.stopRecording();
+							progressDialog.dismiss();
+							showToast(result);
+							loadHandler.sendEmptyMessage(2);
+						}
+					}.start();
 				}
 			}).create();
 			dialog_over.show();
@@ -298,7 +346,18 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 			}).setNeutralButton("确定", new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					loadHandler.sendEmptyMessage(3);
+					progressDialog = ProgressDialog.show(mContext,
+							"","正在与服务器同步状态，请稍候...", true, false);
+					new Thread() {
+						@Override
+						public void run() {
+							boolean result = mService.setTodoState(mTodo.todoId, TODO_SET_STATE_WAIT);
+							mService.stopRecording();
+							progressDialog.dismiss();
+							showToast(result);
+							loadHandler.sendEmptyMessage(3);
+						}
+					}.start();
 				}
 			}).create();
 			 dialog_wait.show();
@@ -335,14 +394,16 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			if (mService.isRecording()) 
 				mService.cancelNotification();
 		}
-		Log.d(TAG, "state==="+mRecordState);
+		Log.d(TAG, "state==="+BusinessApplication.getInstance().mRecordState);
 		
-		switch (mRecordState) {
+		switch (BusinessApplication.getInstance().mRecordState) {
 		case 0:
 		case 2:
 			setGUIPreRecord();
 			break;
 		case 1:
+			todo_detail_panel.setVisibility(View.GONE);
+			recoder_panel.setVisibility(View.VISIBLE);
 			startTasks();
 			break;
 
@@ -355,7 +416,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 					doBindService();
 				} else {
 					if (mService.isRecording()) {
-						if(mRecordState == 1){
+						if(BusinessApplication.getInstance().mRecordState == 1){
 							 Dialog dialog = new AlertDialog.Builder(mContext)
 					         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_recoder_end_text)
 					         .setMessage(R.string.todo_detail_ask_save_recoder_text)
@@ -367,12 +428,12 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 								public void onClick(DialogInterface dialog, int which) {
 									mService.stopRecording();
 									setGUIPreRecord();
-									mRecordState = 2;
+									BusinessApplication.getInstance().mRecordState = 2;
 								}
 							}).create();
 							dialog.show();
 						}
-					} else if (mRecordState == 2) {
+					} else if (BusinessApplication.getInstance().mRecordState == 2) {
 							 Dialog dialog = new AlertDialog.Builder(mContext)
 					         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_recoder_again_text)
 					         .setMessage(R.string.todo_detail_ask_recover_text)
@@ -429,7 +490,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	@Override
 	public void onBackPressed() {
 		if (mService!=null&&mService.isRecording()) {
-			if(mRecordState == 1){
+			if(BusinessApplication.getInstance().mRecordState == 1){
 				 Dialog dialog = new AlertDialog.Builder(mContext)
 		         .setIcon(android.R.drawable.btn_star).setTitle(R.string.todo_detail_recoding_text)
 		         .setMessage(R.string.todo_detail_ask_back_during_recoder_text)
@@ -537,7 +598,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	private ImageView mRecorderStatus;
 	private TextView mVolume;
 	
-	private int mRecordState = 0;
+	//private int mRecordState = 0;
 	
 	
 	private ServiceConnection mConnection = new ServiceConnection() {
@@ -554,7 +615,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	private void setGuiRecording() {
 		todo_detail_panel.setVisibility(View.GONE);
 		recoder_panel.setVisibility(View.VISIBLE);
-		mRecordState = 1;
+		BusinessApplication.getInstance().mRecordState = 1;
 		
 		setRecorderStyle(getResources().getColor(R.color.processing));
 
@@ -563,7 +624,7 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 		
 		try {
 			mService.startRecording(mSampleRate,mResolution, getRecordingFile());
-			mService.setTodoState(mTodo.todoId,TODO_SET_STATE_START);
+			//mService.setTodoState(mTodo.todoId,TODO_SET_STATE_START);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -656,8 +717,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	    		todo_detail_wait_text.setTextColor(Color.RED);
 				break;
 			case 2:
-				mService.setTodoState(mTodo.todoId,TODO_SET_STATE_OVER);
-				mService.stopRecording();
 				setGUIPreRecord();
 				todo_detail_panel.setVisibility(View.VISIBLE);
 				recoder_panel.setVisibility(View.GONE);
@@ -666,8 +725,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 	    		todo_detail_note_text.setTextColor(Color.RED);
 				break;
 			case 3:					
-				mService.setTodoState(mTodo.todoId, TODO_SET_STATE_WAIT);
-				mService.stopRecording();
 				setGUIPreRecord();
 				todo_detail_panel.setVisibility(View.VISIBLE);
 				recoder_panel.setVisibility(View.GONE);
@@ -684,7 +741,6 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 				}
 				break;
 			case 5:
-				mService.setTodoState(mTodo.todoId, TODO_SET_STATE_GO);
 	    		todo_detail_go_text.setTextColor(Color.WHITE);
 	    		todo_detail_go.setClickable(true);
 	    		todo_detail_start_text.setTextColor(Color.RED);
@@ -693,4 +749,11 @@ public class ToDoDetailActivity extends Activity implements OnClickListener{
 			}
 		}
 	};
+	
+	private void showToast(boolean is) {
+		if (is) 
+			Toast.makeText(this, "状态同步成功", Toast.LENGTH_SHORT).show();
+		else 
+			Toast.makeText(this, "状态同步成功,已向客服发送短信（暂定号码为15811488665）", Toast.LENGTH_SHORT).show();
+	}
 }

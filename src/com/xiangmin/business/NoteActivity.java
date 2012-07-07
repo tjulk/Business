@@ -74,7 +74,7 @@ public class NoteActivity  extends Activity implements OnClickListener{
 			Toast.makeText(this, "内容不能为空", Toast.LENGTH_SHORT).show();
 		else {
 			progressDialog = ProgressDialog.show(mContext,
-					"",getResources().getString(R.string.login_waiting_text), true, false);
+					"","正在提交，请稍候...", true, false); 
 			new Thread() {
 				@Override
 				public void run() {

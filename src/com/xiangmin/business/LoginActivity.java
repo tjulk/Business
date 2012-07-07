@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.xiangmin.business.net.APIUtils;
+import com.xiangmin.business.service.RecorderService;
 import com.xiangmin.business.utils.Utils;
 import com.xiangmin.business.R;
 public class LoginActivity extends Activity {
@@ -76,6 +77,7 @@ public class LoginActivity extends Activity {
 							progressDialog.dismiss();
 							switch (result) {
 							case APIUtils.LOGIN_RESULT_SUCCESS:
+								startService(new Intent(mContext, RecorderService.class));
 								loadHandler.sendEmptyMessage(0);
 								break;
 							case APIUtils.LOGIN_RESULT_NORESPONSE:

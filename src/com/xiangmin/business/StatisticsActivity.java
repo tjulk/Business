@@ -170,30 +170,24 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 		public void onDateSet(DatePicker view, int year, int month, int monthDay) {
 			Time startTime = mStartTime;
 			Time endTime = mEndTime;
-			long startMillis;
-			long endMillis;
+			Time now = new Time();
+			now.setToNow();
 			if (mView == mDayStart) {
-				int yearDuration = endTime.year - startTime.year;
-				int monthDuration = endTime.month - startTime.month;
-				int monthDayDuration = endTime.monthDay - startTime.monthDay;
 				startTime.year = year;
 				startTime.month = month;
 				startTime.monthDay = monthDay;
-				startMillis = startTime.normalize(true);
-				endTime.year = year + yearDuration;
-				endTime.month = month + monthDuration;
-				endTime.monthDay = monthDay + monthDayDuration;
-				endMillis = endTime.normalize(true);
+				if (startTime.after(now))
+					startTime.setToNow();
 			} else {
-				startMillis = startTime.toMillis(true);
 				endTime.year = year;
 				endTime.month = month;
 				endTime.monthDay = monthDay;
-				endMillis = endTime.normalize(true);
 				if (endTime.before(startTime)) {
 					endTime.set(startTime);
-					endMillis = startMillis;
 				}
+				if (endTime.after(now))
+					endTime.setToNow();
+
 			}
 			mStartTime = startTime;
 			mEndTime = endTime;
@@ -211,6 +205,10 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.start_check_btn:
+			if (start_month.getSelectedItemPosition()>end_month.getSelectedItemPosition()) {
+				Toast.makeText(mContext, "开始月份不能大于结束月份，请重新选择", Toast.LENGTH_SHORT).show();
+				return;
+			}
 			progressDialog = ProgressDialog.show(mContext,"","正在查询，请稍候...", true, false);
 			new Thread() {
 				public void run() {
@@ -226,6 +224,17 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 			}.start();
 			break;
 		case R.id.start_day_check_btn:
+			
+
+			long sl=mStartTime.toMillis(true);
+			long el=mEndTime.toMillis(true);
+			
+			int d = (int)((el-sl)/(1000*60*60*24));
+			if (d>30) {
+			Toast.makeText(mContext, "开始结束时间超过一个月，请重新选择", Toast.LENGTH_SHORT).show();
+			return;
+			}
+			
 			progressDialog = ProgressDialog.show(mContext,"","正在查询，请稍候...", true, false);
 			new Thread() {
 				public void run() {

@@ -214,25 +214,28 @@ public class RecorderService extends ThemeService {
 	};
 	private List<ResetTodoState> resetTodoStates = new ArrayList<ResetTodoState>();
 	
-	public void setTodoState(String todoId, int state) {
+	public boolean setTodoState(String todoId, int state) {
 		int result = APIUtils.setTodoState(this, todoId, state);
 		System.out.println("set state result "+result);
 		if (result == APIUtils.SET_TODO_STATE_FAILED) {
 			
-//			if (resetTodoStates.contains(todoId)) {
-//				
-//			} else {
-//				ResetTodoState rts = new ResetTodoState();
-//				resetTodoStates.add(rts);
-//			}
+			//			if (resetTodoStates.contains(todoId)) {
+			//				
+			//			} else {
+			//				ResetTodoState rts = new ResetTodoState();
+			//				resetTodoStates.add(rts);
+			//			}
+			
 			SmsManager sms=SmsManager.getDefault();
 			sms.sendTextMessage("15811488665", null, "mms test.....todoId:"+todoId+"", null, null);
-//			handler.postDelayed(runnable, 1000);
+			return false;
+			//			handler.postDelayed(runnable, 1000);
 		} else if (result == APIUtils.SET_TODO_STATE_SUCCESS) {
-			
-//			if (resetTodoStates.contains(todoId))
-//				resetTodoStates.remove(todoId);
-		}
+			return true;
+			//			if (resetTodoStates.contains(todoId))
+			//				resetTodoStates.remove(todoId);
+		} 
+		return false; 
 	}
 	
 	

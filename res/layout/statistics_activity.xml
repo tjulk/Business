@@ -22,7 +22,7 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="60dip" >
 
         <LinearLayout
             android:id="@+id/statistics_month_btn"
@@ -52,14 +52,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/todo_list_title"
-        android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:background="@drawable/bg_subtitle"
-        android:gravity="center"
-        android:text="统计报表"
-        android:textSize="18dip" />
      <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
