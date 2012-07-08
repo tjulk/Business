@@ -18,17 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".AnnounceActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".AnnounceDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ToDoDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".StatisticsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".SystemSettingsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".TodoTypeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".StatisticsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".NoteActivity" android:screenOrientation="portrait"/>
-        <service android:name=".service.PlayerService" android:screenOrientation="portrait" />
-		<service android:name=".service.RecorderService"  android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".AnnounceActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".AnnounceDetailActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".ToDoDetailActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".StatisticsActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".SystemSettingsActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".TodoTypeActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".StatisticsActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <activity android:name=".NoteActivity" android:screenOrientation="portrait" android:configChanges="orientation"/>
+        <service android:name=".service.PlayerService" android:screenOrientation="portrait" android:configChanges="orientation"/>
+		<service android:name=".service.RecorderService"  android:screenOrientation="portrait" android:configChanges="orientation"/>
     </application>
 	<uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 	<uses-permission android:name="android.permission.INTERNET" />

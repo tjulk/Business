@@ -69,7 +69,7 @@ public class LoginActivity extends Activity {
 				}
 				else {
 					progressDialog = ProgressDialog.show(mContext,
-							"",getResources().getString(R.string.login_waiting_text), true, false);
+							"",getResources().getString(R.string.waiting_dialog_text), true, false);
 					new Thread() {
 						@Override
 						public void run() {

@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xiangmin.business.models.PersonSkill;
 import com.xiangmin.business.net.APIUtils;
 import com.xiangmin.business.utils.Utils;
 
@@ -79,6 +79,7 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
         
 		password_text.setTextColor(getResources().getColor(R.color.white));
 		personal_text.setTextColor(Color.RED);
+		Log.d("SystemSettings", "====================oncreat");
         getPersonList();
     }
 
@@ -113,7 +114,7 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
 		
 		if (oldPwd==null||oldPwd.equals("")||newPwd==null||newPwd.equals("")||newPwd2==null||newPwd2.equals(""))
 			Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
-		else if (oldPwd.equals(mSetting.getString("password", "")))
+		else if (!oldPwd.equals(mSetting.getString("password", "")))
 			Toast.makeText(this, "当前密码错误", Toast.LENGTH_SHORT).show();
 		else if (!newPwd.equals(newPwd2)) 
 			Toast.makeText(this, "请输入相同新密码", Toast.LENGTH_SHORT).show();
@@ -132,7 +133,7 @@ public class SystemSettingsActivity extends Activity implements OnClickListener{
 	
 	private void getPersonList() {
 		progressDialog = ProgressDialog.show(mContext,
-				"", getResources().getString(R.string.todo_type_checking_text), true, false);
+				"", getResources().getString(R.string.waiting_dialog_text), true, false);
 		new Thread() {
 			@Override
 			public void run() {

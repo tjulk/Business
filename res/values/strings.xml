@@ -60,11 +60,12 @@
 	<string name="todo_detail_click_for_end_text">点击结束录音</string> 
 	<string name="todo_detail_is_playing_music_text">正在播放录音文件</string>
 
-    <string name="todo_type_checking_text">正在查询，请稍候...</string>
     <string name="todo_type_today_todolist_text">今日订单列表</string>
     <string name="todo_type_tomorrow_todolist_text">明日订单列表</string>
     <string name="todo_type_todolist_text">订单列表</string>
     
     <string name="statistics_start_month">开始月份</string>
     <string name="statistics_end_month">结束月份</string>
+    
+    <string name="waiting_dialog_text">正在提交请求，请稍后......</string>
 </resources>

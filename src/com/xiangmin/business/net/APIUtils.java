@@ -343,52 +343,55 @@ public class APIUtils {
 			+ "</Latitude></CXPQueryOrderReportAPK>";
 	}
 	
-	public static List<Statistics> getStatisticsList(int type, String startDate,String endDate) {
+	public static String getStatisticsList(int type, String startDate,String endDate) {
 		final String xml = getStatisticsXML(type,startDate,endDate);
 		System.out.println("====xml"+xml);
 		final String result = XMLHeader+httpConnect(URL, xml);
-		return parseStatisticsListXML(result);
+		
+		int start  = result.indexOf("<ReportDetail>")+14;
+		int end = result.indexOf("</ReportDetail>");
+		return result.substring(start, end);
 	}
 	
-	public static List<Statistics> parseStatisticsListXML(String xmlString) {
-		List<Statistics> statisticses = new ArrayList<Statistics>();
-		try {
-			StringReader sr = new StringReader(xmlString);  
-			InputSource is = new InputSource(sr);  
-			Document document = (new SAXBuilder()).build(is);
-			Element employees=document.getRootElement();
-			List<Element> employeeList=employees.getChildren("Report");
-			final Statistics statistic = new Statistics();
-			statistic.data = "统计时间";
-			statistic.warrantyPeriodCount = "保外";
-			statistic.warrantyExpiredCount = "保内";
-			statistic.unfinishedCount = "未完成";
-			statistic.finishedCount = "已完成";
-			statistic.warrantyPeriodClearingMoney = "保外结算";
-			statistic.warrantyExpiredClearingMoney = "保内结算";
-			statisticses.add(statistic);
-			
-			for(int i=0;i<employeeList.size();i++) {
-				final Statistics statistics = new Statistics();
-				Element el = employeeList.get(i);
-				statistics.data = el.getChildText("Date");
-				statistics.warrantyPeriodCount = el.getChildText("WarrantyPeriodCount");
-				statistics.warrantyExpiredCount = el.getChildText("WarrantyExpiredCount");
-				statistics.unfinishedCount = el.getChildText("UnfinishedCount");
-				statistics.finishedCount = el.getChildText("FinishedCount");
-				statistics.warrantyPeriodClearingMoney = el.getChildText("WarrantyPeriodClearingMoney")==null?"0":el.getChildText("WarrantyPeriodClearingMoney");
-				statistics.warrantyExpiredClearingMoney = el.getChildText("WarrantyExpiredClearingMoney")==null?"0":el.getChildText("WarrantyExpiredClearingMoney");
-				statisticses.add(statistics);
-			}
-			
-		} catch (JDOMException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("=============statisticses====="+statisticses.toString());
-		return statisticses;
-	}
+//	public static List<Statistics> parseStatisticsListXML(String xmlString) {
+//		List<Statistics> statisticses = new ArrayList<Statistics>();
+//		try {
+//			StringReader sr = new StringReader(xmlString);  
+//			InputSource is = new InputSource(sr);  
+//			Document document = (new SAXBuilder()).build(is);
+//			Element employees=document.getRootElement();
+//			List<Element> employeeList=employees.getChildren("Report");
+//			final Statistics statistic = new Statistics();
+//			statistic.data = "统计时间";
+//			statistic.warrantyPeriodCount = "保外";
+//			statistic.warrantyExpiredCount = "保内";
+//			statistic.unfinishedCount = "未完成";
+//			statistic.finishedCount = "已完成";
+//			statistic.warrantyPeriodClearingMoney = "保外结算";
+//			statistic.warrantyExpiredClearingMoney = "保内结算";
+//			statisticses.add(statistic);
+//			
+//			for(int i=0;i<employeeList.size();i++) {
+//				final Statistics statistics = new Statistics();
+//				Element el = employeeList.get(i);
+//				statistics.data = el.getChildText("Date");
+//				statistics.warrantyPeriodCount = el.getChildText("WarrantyPeriodCount");
+//				statistics.warrantyExpiredCount = el.getChildText("WarrantyExpiredCount");
+//				statistics.unfinishedCount = el.getChildText("UnfinishedCount");
+//				statistics.finishedCount = el.getChildText("FinishedCount");
+//				statistics.warrantyPeriodClearingMoney = el.getChildText("WarrantyPeriodClearingMoney")==null?"0":el.getChildText("WarrantyPeriodClearingMoney");
+//				statistics.warrantyExpiredClearingMoney = el.getChildText("WarrantyExpiredClearingMoney")==null?"0":el.getChildText("WarrantyExpiredClearingMoney");
+//				statisticses.add(statistics);
+//			}
+//			
+//		} catch (JDOMException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println("=============statisticses====="+statisticses.toString());
+//		return statisticses;
+//	}
 	
 	/*------------------------ ------------------getStatistics end------------------------------------------------------*/
 	

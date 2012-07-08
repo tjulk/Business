@@ -98,7 +98,7 @@ public class TodoTypeActivity extends Activity implements OnClickListener{
     
 	private void getTodoList(final int type) {
 		progressDialog = ProgressDialog.show(mContext,
-				"", getResources().getString(R.string.todo_type_checking_text), true, false);
+				"", getResources().getString(R.string.waiting_dialog_text), true, false);
 		new Thread() {
 			@Override
 			public void run() {

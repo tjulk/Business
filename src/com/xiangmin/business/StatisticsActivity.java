@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -28,7 +29,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.xiangmin.business.adapters.StatisticsListAdapter;
-import com.xiangmin.business.models.Statistics;
 import com.xiangmin.business.net.APIUtils;
 
 public class StatisticsActivity extends Activity implements OnClickListener{
@@ -51,7 +51,7 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 	
 	private Context mContext;
 	
-	private ListView statistics_list;
+	private WebView statistics_list;
 	
 	private StatisticsListAdapter mStatisticsListAdapter;
 	
@@ -102,7 +102,7 @@ public class StatisticsActivity extends Activity implements OnClickListener{
         month_text = (TextView) findViewById(R.id.month_text);
         day_text = (TextView) findViewById(R.id.day_text);
         
-        statistics_list = (ListView) findViewById(R.id.statistics_list);
+        statistics_list = (WebView) findViewById(R.id.statistics_list);
         month_panel = (LinearLayout) findViewById(R.id.month_panel);
         day_panel = (LinearLayout) findViewById(R.id.day_panel);
         statistics_month_btn = (LinearLayout) findViewById(R.id.statistics_month_btn);
@@ -200,6 +200,8 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 	private String formatString(Time time) {
 		return time.year+"-"+String.format("%02d", time.month+1) + "-" + String.format("%02d", time.monthDay);
 	}
+	
+	private String resultStr = "";
 
 	@Override
 	public void onClick(View v) {
@@ -212,9 +214,8 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 			progressDialog = ProgressDialog.show(mContext,"","正在查询，请稍候...", true, false);
 			new Thread() {
 				public void run() {
-					final List<Statistics> list = APIUtils.getStatisticsList(CHECK_MONTH,start_month.getSelectedItem().toString(),end_month.getSelectedItem().toString());
-					if (list!=null&& list.size()!=0) {
-						mStatisticsListAdapter = new StatisticsListAdapter(getLayoutInflater(),list);
+					resultStr = APIUtils.getStatisticsList(CHECK_MONTH,start_month.getSelectedItem().toString(),end_month.getSelectedItem().toString());
+					if (!resultStr.equals("")) {
 						loadHandler.sendEmptyMessage(0);
 					} else {
 						loadHandler.sendEmptyMessage(2);
@@ -238,10 +239,9 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 			progressDialog = ProgressDialog.show(mContext,"","正在查询，请稍候...", true, false);
 			new Thread() {
 				public void run() {
-					final List<Statistics> list = APIUtils.getStatisticsList(CHECK_DAY,formatString(mStartTime)
+					resultStr = APIUtils.getStatisticsList(CHECK_DAY,formatString(mStartTime)
 							,formatString(mEndTime));
-					if (list!=null&& list.size()!=0) {
-						mStatisticsListAdapter = new StatisticsListAdapter(getLayoutInflater(),list);
+					if (!resultStr.equals("")) {
 						loadHandler.sendEmptyMessage(0);
 					} else {
 						loadHandler.sendEmptyMessage(2);
@@ -276,7 +276,8 @@ public class StatisticsActivity extends Activity implements OnClickListener{
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				statistics_list.setAdapter(mStatisticsListAdapter);
+		        String mPersonSkillHtml = "<html><head><meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ /></head><body>" + resultStr + "</body></html>";
+		        statistics_list.loadDataWithBaseURL("",mPersonSkillHtml, "text/html", "utf-8","");
 				month_panel.setVisibility(View.GONE);
 				day_panel.setVisibility(View.GONE);
 				statistics_list.setVisibility(View.VISIBLE);

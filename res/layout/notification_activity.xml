@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:gravity="center"
-            android:text="@string/login_logo_text"
+            android:text="通知公告"
             android:textColor="@color/white"
             android:textSize="22dip" />
     </LinearLayout>
